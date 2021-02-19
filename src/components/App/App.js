@@ -4,7 +4,8 @@
 
   import Home from './Routes/Home/Home';
   import Logform from './Routes/Logform/Logform';
-import Register from './Routes/Register/Register';
+  import Register from './Routes/Register/Register';
+  import Missing from './Routes/Missing/Missing';
 
 
   class App extends Component{
@@ -33,6 +34,9 @@ import Register from './Routes/Register/Register';
               {...routeProps}
               />
             )}
+            />
+            <Route
+              component={Missing}
             />
           </Switch>
         </div>
