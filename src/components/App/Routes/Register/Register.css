@@ -1,0 +1,188 @@
+body{
+    display: flex;
+    flex-direction: column;
+  }
+  
+  header{
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+  
+    .user{
+      display: flex;
+      flex-direction: row;
+      justify-content: space-around;
+    }
+  
+    .user p{
+      color: lightseagreen;
+      font-size: 20px;
+      padding: 1px;
+    }
+  
+    .siteTitle{
+      display: flex;
+      justify-content: center;
+      color: lightseagreen;
+      background-color: white;
+      font-size: 30px;
+    }
+  
+      main{
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-evenly;
+    }
+  
+    .profileLog{
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-evenly;
+    }
+  
+      .halfSection{
+      width: 100%;
+      padding: 5px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-evenly;
+    }
+    
+    .halfSection div{
+      padding: 10px;
+      background-color: lightseagreen;
+      color: white;
+      border-radius: 25px;
+      margin: 5px;
+    }
+    
+    .sectionTitle{
+      color: lightseagreen;
+      background-color: white;
+      padding: 10px;
+      border-radius: 25px;
+    }
+  
+    
+    button{
+      display: flex;
+      justify-content: center;
+      flex-grow: 1;
+      background-color: white;
+      color: lightseagreen; 
+      border-radius: 25px;
+      font-size: 25px;
+      padding: 10px;
+      margin: 20px;
+    }
+  
+    .submitter{
+      display: flex;
+      justify-content: center;
+      font-size: 15px;
+    }
+  
+      button:hover{
+      cursor: pointer;
+      background-color: lightseagreen;
+      color: white; 
+    }
+  
+    .profileBack{
+      display: flex;
+      justify-content: center;
+      background-color: lightseagreen;
+      color: white; 
+      border-radius: 25px;
+      font-size: 15px;
+      padding: 25px;
+      margin: 20px;
+    }
+  
+    .profileForm{
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    
+    .profileForm div{
+      margin: 3px;
+    }
+  
+    .logButton{
+      width: 60%;
+      font-size: 15px;
+    }
+  
+    .logReminder{
+      display: flex;
+      justify-content: center;
+      color: white;
+      background-color: lightseagreen;
+      border-radius: 25px;
+    }
+
+    .error{
+      color: red;
+    }
+
+    .hidden{
+      display: none;
+    }
+  
+  @media only screen and (min-width: 768px){
+  
+    header{
+      display: flex;
+      justify-content: space-around;
+    }
+    
+    
+    .user{
+      width: 40%;
+    }
+  
+  
+    .user p{
+      color: lightseagreen;
+      font-size: 20px;
+      padding: 5px;
+    }
+  
+      .siteTitle{
+      color: lightseagreen;
+      background-color: white;
+      font-size: 30px;
+    }
+  
+    main{
+      flex-direction: row;
+    }
+  
+    .halfSection{
+      width: 50%;
+    }
+  
+    .createQuiz{
+      color: lightseagreen;
+      background-color: white;
+      padding: 10px;
+      border-radius: 25px;
+      font-size: 20px;
+    }
+  
+    button{
+      width: 25%;
+    }
+  
+      .profileForm{
+      display: flex;
+      flex-direction: column;
+      justify-content: left;
+    }
+  
+  }
+  

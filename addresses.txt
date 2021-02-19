@@ -1,0 +1,9 @@
+/
+/login
+/register
+/profile
+/create:quizID
+/create:quizID:questionID
+
+/quiz:questionID
+/quiz/results
