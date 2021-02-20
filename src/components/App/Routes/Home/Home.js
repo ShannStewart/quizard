@@ -1,40 +1,16 @@
 import './Home.css';
 import { Component } from 'react';
-import { Route, Link, Switch } from 'react-router-dom'
 
 import Header from '../../Header/Header';
+import TokenService from '../../../../services/token-service'
 
-import PublicOnlyRoute from '../../../Utils/PublicOnlyRoute';
-import PrivateRoute from '../../../Utils/PrivateRoute';
 
-class Home extends Component{
-  state = {
-    Users: [],
-    Quizzes: [],
-    Questions: [],
-    UsersID: 0,
-    QuizID: 0,
-    QuestionID: 0
-};
-  
-  render(){ 
-    return (
-      <div className="Home">
-        <Header/>
+class HomeLogin extends Component{
+
+  render(){
+    return(
       <main>
-        <Switch>
-          <PublicOnlyRoute>
-          <section className='fullSection otherQuiz'>
-                <div className='newQuizzes'>
-                    <h2 className='sectionTitle'>New Quizzes</h2>
-                  </div>
-                <div className= 'popularQuizzes'>
-                    <h2 className='sectionTitle'>Popular Quizzes</h2>
-                  </div>
-              </section>
-          </PublicOnlyRoute>
-          <PrivateRoute>
-            <section className='halfSection userQuiz'>
+           <section className='halfSection userQuiz'>
                 <div>
                     <h2 className='sectionTitle'>Quizzes In Progress</h2>
                     <div className='unpublished'>
@@ -52,9 +28,39 @@ class Home extends Component{
                     <h2 className='sectionTitle'>Popular Quizzes</h2>
                   </div>
               </section>
-              </PrivateRoute>
-            </Switch>
-        </main>
+      </main>
+    )
+  }
+}
+
+class HomeLogout extends Component{
+
+  render(){
+    return(
+      <main>
+      <section className='fullSection otherQuiz'>
+          <div className='newQuizzes'>
+              <h2 className='sectionTitle'>New Quizzes</h2>
+            </div>
+          <div className= 'popularQuizzes'>
+              <h2 className='sectionTitle'>Popular Quizzes</h2>
+            </div>
+        </section>
+      </main>
+    )
+  }
+}
+  
+
+class Home extends Component{
+  
+  render(){ 
+    return (
+      <div className="Home">
+        <Header/>
+        {TokenService.hasAuthToken()
+                ? <HomeLogin/>
+                : <HomeLogout/>}
       </div>
     );
   }
