@@ -2,7 +2,12 @@ import './Home.css';
 import { Component } from 'react';
 
 import Header from '../../Header/Header';
-import TokenService from '../../../../services/token-service'
+import TokenService from '../../../../services/token-service';
+
+import NewQuiz from '../../newQuiz/newQuiz';
+import PopularQuiz from '../../popularQuiz/popularQuiz';
+
+import dummyStore from '../../../../dummy-store';
 
 
 class HomeLogin extends Component{
@@ -39,12 +44,8 @@ class HomeLogout extends Component{
     return(
       <main>
       <section className='fullSection otherQuiz'>
-          <div className='newQuizzes'>
-              <h2 className='sectionTitle'>New Quizzes</h2>
-            </div>
-          <div className= 'popularQuizzes'>
-              <h2 className='sectionTitle'>Popular Quizzes</h2>
-            </div>
+          <NewQuiz/>
+          <PopularQuiz/>
         </section>
       </main>
     )

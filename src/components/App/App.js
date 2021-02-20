@@ -27,11 +27,25 @@
     setTimeout(() => this.setState(dummyStore), 600);
 }
 
+    questionGiftUser = (a) =>{
+      console.log('questionGiftUser ran');
+
+      var giftedUser = findUser();
+
+
+    }
+
+    quizGiftUser = (b) => {
+      console.log('quizGiftUser ran');
+
+      var giftedUser = findUser();
+    }
+
     userSubmit = (u, p) => {
       //console.log('userSubmit ran');
       //console.log('running userSubmit with: ' + u + ' and ' + p);
 
-      var newUser = {"id": "newUser" + this.state.userID, "user_name": u, "password": p};
+      var newUser = {"id": "newUser" + this.state.userID, "user_name": u, "password": p, "quizzes": [], "questions": []};
 
       //console.log('new user: ' + newUser);
 
@@ -50,7 +64,7 @@
     questionSubmit = (q, t, pi) => {
       console.log('questionSubmit ran');
 
-      var newQuestion = {"id": "newQuestion" + this.state.questionID, "question": q, "answer": t};
+      var newQuestion = {"id": "newQuestion" + this.state.questionID, "question": q, "answer": t, "choices": [] };
 
       var newQuestionID = this.state.questionID + 1;
       this.setState({questionID: newQuestionID});
@@ -66,7 +80,7 @@
 
       var date = new Date();
 
-      var newQuiz = {"id": "newQuiz" + this.state.quizID, "name": x, "questions": y, "modified": date,};
+      var newQuiz = {"id": "newQuiz" + this.state.quizID, "name": x, "questions": y, "modified": date, "count": 0};
 
       var newQuizID = this.state.quizID + 1;
       this.setState({quizID: newQuizID});
