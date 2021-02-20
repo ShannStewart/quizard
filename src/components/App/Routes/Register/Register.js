@@ -13,14 +13,40 @@ class Register extends Component{
     
       handleSubmit = ev => {
         ev.preventDefault()
-        const { signupName, signupPassword } = ev.target
+        console.log('register handlesubmit ran');
+        var userName = ev.target.username.value;
+        var password = ev.target.password.value;
+        var confirm = ev.target.confirm.value;
+
+        var userMiss = document.getElementById("usernameMissing");
+        var passMiss = document.getElementById("passwordMissing");
+        var confirmMiss = document.getElementById("confirmMissing");
+
+        userMiss.classList.add("hidden");
+        passMiss.classList.add("hidden");
+        confirmMiss.classList.add("hidden");
     
+        if (!userName){
+            userMiss.classList.remove("hidden");
+              return console.log("no name"); 
+          }
+
+          if (!password){
+            passMiss.classList.remove("hidden");
+              return console.log("no password"); 
+          }
+
+          if (confirm !== password){
+            confirmMiss.classList.remove("hidden");
+              return console.log("passwords aren't the same"); 
+          }
+
         console.log('registration form submitted')
-        console.log({ signupName, signupPassword })
+        console.log({ userName, password })
     
-        signupName.value = ''
-        signupPassword.value = ''
-        this.props.onRegistrationSuccess()
+       this.props.addNewUser(userName, password);
+
+       this.props.history.goBack();
       }
 
     render(){
@@ -53,8 +79,10 @@ class Register extends Component{
                     </form>
                 </div>
                 </div>
-            <div className='error hidden' id='passwordError'>
-                <p>Passwords do not match.</p>
+            <div className='errorSpace hidden' id='passwordError'>
+                        <p className="hidden" id="usernameMissing">Username is required</p>
+                        <p className="hidden" id="passwordMissing">Password is required</p>
+                        <p className="hidden" id="confirmMissing">Passwords aren't the same</p>
             </div>
             </div>
         )

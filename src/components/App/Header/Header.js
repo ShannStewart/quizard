@@ -31,9 +31,6 @@ export class HeaderIn extends Component{
       <div className='headerBar'>
              <p>My Profile</p>
                   <Log/>
-                  <Link to='/signup'>
-                        Register
-                    </Link>
       </div>
     )
   }

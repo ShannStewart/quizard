@@ -5,6 +5,8 @@ import TokenService from '../../../../services/token-service'
 
 import dummyStore from '../../../../dummy-store';
 
+//import userContext from '../../../context/userContext';
+
 class Logform extends Component{
 
     static defaultProps = {
@@ -15,7 +17,7 @@ class Logform extends Component{
     
       handleLogIn = ev => {
         ev.preventDefault()
-        console.log("handleLogIn ran");
+        //console.log("handleLogIn ran");
 
         var userName = ev.target.user_name.value;
         var password = ev.target.password.value;
