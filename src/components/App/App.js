@@ -10,12 +10,9 @@
   import dummyStore from '../../dummy-store';
   import { findUser, findQuiz, findQuestion, getQuizzesForUsers, getQuestionsForUsers, getQuestionsforQuizzes, countQuizzesForUser, countQuestionsForUser, countQuestionsForQuiz} from '../../helper';
 
-
+  import TokenService from '../../services/token-service';
 
   class App extends Component{
-<<<<<<< HEAD
-    constructor(){
-=======
     state = {
       users: [],
       quizzes: [],
@@ -60,6 +57,10 @@
       var newUserList = this.state.users.concat(newUser);
       this.setState({ users: newUserList });
 
+      var ider = newUser.id;
+
+      TokenService.saveAuthToken( JSON.stringify({ u, p, ider }) );
+
       //console.log('check2');
 
     }
@@ -91,25 +92,30 @@
       
       var newQuizList = this.state.quizzes.concat(newQuiz);
       this.setState({ quizzes: newQuizList });
->>>>>>> 6d96ccec5d9972e3a5083771f926e84dc884fcbe
       
     }
     
     render(){ 
       return (
-
           <div className="App">
             <Switch>
               <Route
                 exact
                 path={'/'}
-                component={Home}
+                render={routeProps => (
+                  <Home
+                    {...routeProps}
+                    userList={this.state.users}
+                    quizList={this.state.quizzes}
+                />
+                  )}
                 />
                 <Route
                 path={'/login'}
                 render={routeProps => (
                   <Logform
                     {...routeProps}
+                    existUser={this.state.users}
                   />
                   )}
                 />
@@ -118,6 +124,7 @@
               render={routeProps => (
                 <Register
                 {...routeProps}
+                existUser={this.state.users}
                 addNewUser={this.userSubmit}
                 />
               )} 

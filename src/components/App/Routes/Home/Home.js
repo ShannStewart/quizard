@@ -7,8 +7,7 @@ import TokenService from '../../../../services/token-service';
 import NewQuiz from '../../newQuiz/newQuiz';
 import PopularQuiz from '../../popularQuiz/popularQuiz';
 
-import dummyStore from '../../../../dummy-store';
-
+//import dummyStore from '../../../../dummy-store';
 
 class HomeLogin extends Component{
 
@@ -26,12 +25,8 @@ class HomeLogin extends Component{
                   </div>
               </section>
             <section className='halfSection otherQuiz'>
-                <div className='newQuizzes'>
-                    <h2 className='sectionTitle'>New Quizzes</h2>
-                  </div>
-                <div className= 'popularQuizzes'>
-                    <h2 className='sectionTitle'>Popular Quizzes</h2>
-                  </div>
+              <NewQuiz quizList={this.props.quizList} userList={this.props.userList}/>
+              <PopularQuiz quizList={this.props.quizList} userList={this.props.userList}/>
               </section>
       </main>
     )
@@ -43,9 +38,9 @@ class HomeLogout extends Component{
   render(){
     return(
       <main>
-      <section className='fullSection otherQuiz'>
-          <NewQuiz/>
-          <PopularQuiz/>
+      <section className='fullSection otherQuiz'>     
+            <NewQuiz quizList={this.props.quizList} userList={this.props.userList}/>
+            <PopularQuiz quizList={this.props.quizList} userList={this.props.userList}/>
         </section>
       </main>
     )
@@ -60,8 +55,8 @@ class Home extends Component{
       <div className="Home">
         <Header/>
         {TokenService.hasAuthToken()
-                ? <HomeLogin/>
-                : <HomeLogout/>}
+                ? <HomeLogin quizList={this.props.quizList} userList={this.props.userList}/>
+                : <HomeLogout quizList={this.props.quizList} userList={this.props.userList}/>}
       </div>
     );
   }

@@ -5,7 +5,7 @@ export default {
             "id": "Z100",
             "user_name": "turtlesoup",
             "password": "password",
-            "quizzes": ["Q100"],
+            "quizzes": ["Q100", "Q102"],
             "questions": ["Y105"],
         },
         {
@@ -25,7 +25,7 @@ export default {
             "name": "Marvel",
             "questions": ["Y100", "Y101", "Y102"],
             "count": 0,
-            "modified": "2018-02-05T00:00:00.000Z",
+            "modified": "2020-02-05T00:00:00.000Z",
         },
         {
             "id": "Q101",
@@ -33,6 +33,13 @@ export default {
             "questions": ["Y103", "Y104"],
             "count": 100,
             "modified": "2018-12-01T00:00:00.000Z",
+        },
+        {
+            "id": "Q102",
+            "name": "Data Structures",
+            "questions": ["Y106, Y107"],
+            "count": 25,
+            "modified": "2019-11-01T00:00:00.000Z"
         }
     
     ],
@@ -76,7 +83,18 @@ export default {
             "answer": "Dr Pepper",
             "choices": ["Coke", "Sprite"]
         },
-
+        {
+            "id": "Y106",
+            "question": "What data strucutre follows FIFO rules?",
+            "answer": "Queue",
+            "choices": ["Stack", "LinkedList"]
+        },
+        {
+            "id": "Y107",
+            "question": "What data strucutre follows LILO rules?",
+            "answer": "Stack",
+            "choices": ["Queue", "Arrays"]
+        },
     ]
 
     

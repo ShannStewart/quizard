@@ -21,6 +21,7 @@ class Register extends Component{
         var userMiss = document.getElementById("usernameMissing");
         var passMiss = document.getElementById("passwordMissing");
         var confirmMiss = document.getElementById("confirmMissing");
+        var takenUser = document.getElementById("alreadyThere")
 
         userMiss.classList.add("hidden");
         passMiss.classList.add("hidden");
@@ -41,8 +42,20 @@ class Register extends Component{
               return console.log("passwords aren't the same"); 
           }
 
-        console.log('registration form submitted')
-        console.log({ userName, password })
+          //console.log("existUser: " + this.props.existUser);
+
+         const userCheck = this.props.existUser.find(user => user.user_name == userName);
+
+          //console.log("userCheck: " + JSON.stringify(userCheck));
+
+          if (typeof userCheck !== "undefined"){
+              console.log("userCheck isnt undefined")
+            takenUser.classList.remove("hidden");
+                return console.log("username taken")
+          }
+
+        //console.log('registration form submitted')
+        //console.log({ userName, password })
     
        this.props.addNewUser(userName, password);
 
@@ -53,10 +66,10 @@ class Register extends Component{
         return(
             <div className='Signup'>
                  <header>
-                    <button class='backButton' onClick={() => this.props.history.goBack()}>
+                    <button className='backButton' onClick={() => this.props.history.goBack()}>
                         Return
                     </button>
-                    <h1 class='siteTitle'>Quizard</h1>
+                    <h1 className='siteTitle'>Quizard</h1>
                 </header>
             <div className='profileLog'>
                 <div className='profileBack'>
@@ -83,6 +96,7 @@ class Register extends Component{
                         <p className="hidden" id="usernameMissing">Username is required</p>
                         <p className="hidden" id="passwordMissing">Password is required</p>
                         <p className="hidden" id="confirmMissing">Passwords aren't the same</p>
+                        <p className="hidden" id="alreadyThere">That username is already taken</p>
             </div>
             </div>
         )

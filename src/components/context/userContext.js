@@ -1,5 +1,5 @@
 import React from 'react'
 
-const userContext = React.createContext()
+const quizContext = React.createContext()
 
-export default userContext;
+export default quizContext;

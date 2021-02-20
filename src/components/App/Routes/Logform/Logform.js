@@ -40,8 +40,8 @@ class Logform extends Component{
               return console.log("no name"); 
           }
 
-          const userCheck = dummyStore.users.find(user => user.user_name == userName);
-          const passCheck = dummyStore.users.find(user => user.password == password);
+          const userCheck = this.props.existUser.find(user => user.user_name == userName);
+          const passCheck = this.props.existUser.find(user => user.password == password);
 
           if (userCheck == null){
             userMiss.classList.remove("hidden");
@@ -87,7 +87,7 @@ class Logform extends Component{
                             Password  
                             </label>
                         <input type='text' name='password' id='loginPassword'/>
-                        <button type="submit" class='submitter'>
+                        <button type="submit" className='submitter'>
                             Log in
                         </button>
                         </form>
