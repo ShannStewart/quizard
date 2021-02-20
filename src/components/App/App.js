@@ -7,6 +7,8 @@
   import Register from './Routes/Register/Register';
   import Missing from './Routes/Missing/Missing';
 
+  import dummyStore from '../../dummy-store';
+
 
   class App extends Component{
     state = {
@@ -46,10 +48,13 @@
               <Register
               {...routeProps}
               />
-            )}
+            )} 
             />
             <Route
-              component={Missing}
+               render={routeProps => (
+                 <Missing
+                 {...routeProps}/>
+                 )}
             />
           </Switch>
         </div>

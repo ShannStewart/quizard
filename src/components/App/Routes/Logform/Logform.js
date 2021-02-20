@@ -1,7 +1,9 @@
 import { Component } from 'react';
 import './Logform.css'
 import TokenService from '../../../../services/token-service'
-import AuthApiService from '../../../../services/auth-api-service'
+//import AuthApiService from '../../../../services/auth-api-service'
+
+import dummyStore from '../../../../dummy-store';
 
 class Logform extends Component{
 
@@ -11,37 +13,88 @@ class Logform extends Component{
     
       state = { error: null }
     
-      handleSubmitJwtAuth = ev => {
+      handleLogIn = ev => {
         ev.preventDefault()
-        this.setState({ error: null })
-        const { user_name, password } = ev.target
-    
-        AuthApiService.postLogin({
-          user_name: user_name.value,
-          password: password.value,
-        })
-          .then(res => {
-            user_name.value = ''
-            password.value = ''
-            TokenService.saveAuthToken(res.authToken)
-            this.props.onLoginSuccess()
-          })
-          .catch(res => {
-            this.setState({ error: res.error })
-          })
+        console.log("handleLogIn ran");
+
+        var userName = ev.target.user_name.value;
+        var password = ev.target.password.value;
+
+        console.log("checking username: " + userName);
+        console.log("checking password: " + password);
+
+        var userMiss = document.getElementById("usernameMissing");
+        var passMiss = document.getElementById("passwordMissing");
+        var userWrong = document.getElementById("usernameWrong");
+        var passWrong = document.getElementById("passwordWrong");
+
+        userMiss.classList.add("hidden");
+        passMiss.classList.add("hidden");
+        userWrong.classList.add("hidden");
+        passWrong.classList.add("hidden");
+
+        if (!userName){
+            userMiss.classList.remove("hidden");
+              return console.log("no name"); 
+          }
+
+          const userCheck = dummyStore.users.find(user => user.user_name == userName);
+          const passCheck = dummyStore.users.find(user => user.password == password);
+
+          if (userCheck == null){
+            userMiss.classList.remove("hidden");
+              return console.log("username is not in our database");
+          }
+
+          if (!password){
+            passMiss.classList.remove("hidden");
+              return console.log("no password");
+          }
+
+          if (passCheck == null){
+            userMiss.classList.remove("hidden");
+              return console.log("password is wrong");
+          }
+
+          console.log("Sending token");
+
+          TokenService.saveAuthToken( JSON.stringify({ userName, password }) );
+
+          this.props.history.goBack();
       }
+
+      //handleSubmitJwtAuth = ev => {
+      //  ev.preventDefault()
+      //  console.log("handleSubmitJwtAuth ran");
+      //  this.setState({ error: null });
+      //  const { user_name, password } = ev.target
+    
+  //      AuthApiService.postLogin({
+    //      user_name: user_name.value,
+      //    password: password.value,
+       // })
+        //  .then(res => {
+         //   user_name.value = ''
+          //  password.value = ''
+           // TokenService.saveAuthToken(res.authToken)
+           // this.props.onLoginSuccess()
+          //})
+         // .catch(res => {
+         //   this.setState({ error: res.error })
+         // })
+      //}
 
     render(){
         return(
             <div className='Logform'>
                  <header>
-                <button class='backButton' onClick={() => this.props.history.goBack()}>
+                <button className='backButton' onClick={() => this.props.history.goBack()}>
                     Return
                 </button>
-                    <h1 class='siteTitle'>Quizard</h1>
+                    <h1 className='siteTitle'>Quizard</h1>
                 </header>
-                    <div class='profileBack'>
-                    <form action="submit" class='profileForm' onSubmit={this.handleSubmitJwtAuth}>
+                    <div className='profileBack'>
+                    <form action="submit" className='profileForm' onSubmit={this.handleLogIn}>
                         <label>
                             Username
                             </label>
@@ -54,6 +107,12 @@ class Logform extends Component{
                             Log in
                         </button>
                         </form>
+                    </div>
+                    <div className="errorSpace">
+                        <p className="hidden" id="usernameMissing">Username is required</p>
+                        <p className="hidden" id="passwordMissing">Password is required</p>
+                        <p className="hidden" id="usernameWrong">Username is wrong</p>
+                        <p className="hidden" id="passwordWrong">Password is wrong</p>
                     </div>
             </div>
         )
