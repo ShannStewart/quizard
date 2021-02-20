@@ -1,6 +1,6 @@
   //import './App.css';
   import { Route, Switch } from 'react-router-dom';
-  import { Component } from 'react';
+  import React, { Component } from 'react';
 
   import Home from './Routes/Home/Home';
   import Logform from './Routes/Logform/Logform';
@@ -8,7 +8,7 @@
   import Missing from './Routes/Missing/Missing';
 
   import dummyStore from '../../dummy-store';
-
+  import { findUser, findQuiz, findQuestion, getQuizzesForUsers, getQuestionsForUsers, getQuestionsforQuizzes, countQuizzesForUser, countQuestionsForUser, countQuestionsForQuiz} from '../../helper';
 
 
 
@@ -28,32 +28,53 @@
 }
 
     userSubmit = (u, p) => {
-      console.log('userSubmit ran');
-      console.log('running userSubmit with: ' + u + ' and ' + p);
+      //console.log('userSubmit ran');
+      //console.log('running userSubmit with: ' + u + ' and ' + p);
 
       var newUser = {"id": "newUser" + this.state.userID, "user_name": u, "password": p};
 
-      console.log('new user: ' + newUser);
+      //console.log('new user: ' + newUser);
 
       var newUserID = this.state.userID + 1;
       this.setState({userID: newUserID});
 
-      console.log('check1');
+      //console.log('check1');
 
-      var newUserList = this.state.users.concat(JSON.stringify(newUser));
+      var newUserList = this.state.users.concat(newUser);
       this.setState({ users: newUserList });
 
-      console.log('check2');
+      //console.log('check2');
 
     }
 
-    questionSubmit = (q) => {
+    questionSubmit = (q, t, pi) => {
       console.log('questionSubmit ran');
+
+      var newQuestion = {"id": "newQuestion" + this.state.questionID, "question": q, "answer": t};
+
+      var newQuestionID = this.state.questionID + 1;
+      this.setState({questionID: newQuestionID});
+
+      
+      var newQuestionList = this.state.questions.concat(newQuestion);
+      this.setState({ questions: newQuestionList });
+
     }
 
-    quizSubmit = (x, y) => {
+    quizSubmit = (x, y, z) => {
       console.log('quizSubmit ran');
-      console.log('username ' + x + ' password: ' + y);
+
+      var date = new Date();
+
+      var newQuiz = {"id": "newQuiz" + this.state.quizID, "name": x, "questions": y, "modified": date,};
+
+      var newQuizID = this.state.quizID + 1;
+      this.setState({quizID: newQuizID});
+
+      
+      var newQuizList = this.state.quizzes.concat(newQuiz);
+      this.setState({ quizzes: newQuizList });
+      
     }
     
     render(){ 

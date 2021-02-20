@@ -58,9 +58,12 @@ class Logform extends Component{
               return console.log("password is wrong");
           }
 
+          const userID = userCheck.id;
+          //console.log('userID is: ' + userID);
+
           console.log("Sending token");
 
-          TokenService.saveAuthToken( JSON.stringify({ userName, password }) );
+          TokenService.saveAuthToken( JSON.stringify({ userName, password, userID }) );
 
           this.props.history.goBack();
       }
