@@ -4,7 +4,7 @@ import './popularQuiz.css'
 
 import QuizPanel from '../quizPanel/quizPanel'
 
-import dummyStore from '../../../dummy-store'
+//import dummyStore from '../../../dummy-store'
 
 class PopularQuiz extends Component{
 

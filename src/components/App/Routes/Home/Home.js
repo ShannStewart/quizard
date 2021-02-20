@@ -6,6 +6,7 @@ import TokenService from '../../../../services/token-service';
 
 import NewQuiz from '../../newQuiz/newQuiz';
 import PopularQuiz from '../../popularQuiz/popularQuiz';
+import PublishedQuiz from '../../PublishedQuiz/PublishedQuiz';
 
 //import dummyStore from '../../../../dummy-store';
 
@@ -20,9 +21,7 @@ class HomeLogin extends Component{
                     <div className='unpublished'>
                       </div>
                   </div>
-                <div className='published'>
-                    <h2 className='sectionTitle'>Your Published Quizzes</h2>
-                  </div>
+                <PublishedQuiz quizList={this.props.quizList} userList={this.props.userList}/>
               </section>
             <section className='halfSection otherQuiz'>
               <NewQuiz quizList={this.props.quizList} userList={this.props.userList}/>
