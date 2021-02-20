@@ -9,6 +9,19 @@
 
 
   class App extends Component{
+    state = {
+      users: [],
+      quizzes: [],
+      questions: 0,
+      userID: 0,
+      quizID: 0,
+      questionID: 0
+  };
+
+  componentDidMount() {
+    // fake date loading from API call
+    setTimeout(() => this.setState(dummyStore), 600);
+}
     
     render(){ 
       return (
