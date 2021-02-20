@@ -125,6 +125,10 @@ header{
     border-radius: 25px;
   }
 
+  .errorSpace p{
+    color: tomato;
+}
+
 @media only screen and (min-width: 768px){
 
   header{

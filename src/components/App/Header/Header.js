@@ -6,29 +6,47 @@ import Log from '../Log/Log';
 import PublicOnlyRoute from '../../Utils/PublicOnlyRoute';
 import PrivateRoute from '../../Utils/PrivateRoute';
 
+import TokenService from '../../../services/token-service'
+
+export class HeaderOut extends Component{
+
+  render(){
+    return(
+      <div className='headerBar'>
+           <Log/>
+           <div>
+                <Link to='/signup'>
+                      Register
+                  </Link>
+              </div>
+      </div>
+    )
+  }
+}
+
+export class HeaderIn extends Component{
+
+  render(){
+    return(
+      <div className='headerBar'>
+             <p>My Profile</p>
+                  <Log/>
+      </div>
+    )
+  }
+}
+
 class Header extends Component{
 
   render(){ 
     return (
-      <div className="Header">
+      <div>
         <header>
           <h1 className='siteTitle'>Quizard</h1>
           <section className='user'>
-          <Switch>
-            <PublicOnlyRoute>
-                <Log/>
-                <Link to='/signup'>
-                      Register
-                  </Link>
-            </PublicOnlyRoute>
-            <PrivateRoute>
-              <p>My Profile</p>
-                  <Log/>
-                  <Link to='/signup'>
-                        Register
-                    </Link>
-            </PrivateRoute>
-          </Switch>
+          {TokenService.hasAuthToken()
+                ? <HeaderIn/>
+                : <HeaderOut/>}
             </section>
         </header>
       </div>
