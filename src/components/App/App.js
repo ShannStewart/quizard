@@ -9,6 +9,9 @@
 
 
   class App extends Component{
+    constructor(){
+      
+    }
     
     render(){ 
       return (
