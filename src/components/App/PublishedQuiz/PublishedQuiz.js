@@ -2,48 +2,73 @@ import {React, Component} from 'react';
 import './PublishedQuiz.css'
 
 import TokenService from '../../../services/token-service';
-import { findUser, findQuiz, getQuizzesForUsers } from '../../../helper';
+import { findUser, findQuiz, } from '../../../helper';
+
+import UserPanel from '../UserPanel/UserPanel'
 
 
 class PublishedQuiz extends Component{
 
-    findKey = () => {
-       // console.log('findUser ran ');
-
+    getAllQuizzes = () =>{
+        console.log('getAllQuizzes ran');
         var userToken = TokenService.getAuthToken();
-        // getAuthToken() {
-        //    return window.sessionStorage.getItem(config.TOKEN_KEY)
-        //  },
+        //console.log('userKey: ' + userToken);
 
-       console.log('userKey: ' + userToken)
-        //userKey: {"userName":"turtlesoup","password":"password","userID":"Z100"}
-        console.log(userToken.userName);
-        console.log(userToken.password);
-       console.log(userToken.userID);
-        //undefined
+        var quizzer = findUser(this.props.userList, userToken);
+        //console.log(quizzer);
 
-        console.log(sessionStorage.getItem("userID"));
+        var quizzerQuiz = Array.from(quizzer.quizzes);
+        //console.log(quizzerQuiz);
 
-        return userToken.userID
+        var quizzerUser = quizzer.user_name;
+        //console.log(quizzerUser);
 
+        return quizzerQuiz
     }
 
-    getAllQuizzes = () =>{
-        //console.log('getAllQuizzes ran');
-        const userKey = this.findKey();
+    quizDetail = () =>{
+        console.log('quizDetails ran');
 
-        //console.log( getQuizzesForUsers(this.props.quizList, this.props.userList, userKey) );
-        //console.log(findUser(userKey));
+        var userQuiz = this.getAllQuizzes()
+        //console.log(userQuiz);
+
+        var newQuizList = [];
+
+        var i;
+        for (i = 0; i < userQuiz.length; i++){
+            //console.log(findQuiz(this.props.quizList, userQuiz[i]));
+            newQuizList = newQuizList.concat(findQuiz(this.props.quizList, userQuiz[i]));
+        }
+        
+        return newQuizList
+    }
+
+    getUser = () =>{
+        console.log('getUser ran');
+        var userToken = TokenService.getAuthToken();
+        
+        var quizzer = findUser(this.props.userList, userToken);
+
+        var quizzerUser = quizzer.user_name;
+
+        return quizzerUser
     }
 
     render(){
 
-        this.getAllQuizzes();
-        
+        const publishedList = this.quizDetail();
+
+        const sortedQuiz = publishedList.sort((a,b) => b.modified - a.modified)
+
+
         return(
             <div className='published'>
                 <h2 className='sectionTitle'>Your Quizzes</h2>
-                Friday
+                <div className='quizList'>
+                    {sortedQuiz.map(quiz =>
+                        <UserPanel key={quiz.id} title={quiz.name} views={quiz.count} author={this.getUser()}/>
+                    )}
+                </div>
             </div>
         )
     }

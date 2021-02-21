@@ -8,10 +8,6 @@ quizzes.find(quiz => quiz.id === quizId)
 export const findQuestion = (questions=[], questionId) =>
 questions.find(question => question.id === questionId)
 
-export const getQuizzesForUsers = (quizzes=[], users=[], userId) => (
-  console.log(findUser(users, userId))
-)
-
 export const getQuestionsForUsers = (questions=[], userId) => (
     (!userId)
       ? questions

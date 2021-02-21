@@ -37,7 +37,7 @@ export default {
         {
             "id": "Q102",
             "name": "Data Structures",
-            "questions": ["Y106, Y107"],
+            "questions": ["Y106", "Y107"],
             "count": 25,
             "modified": "2019-11-01T00:00:00.000Z"
         }

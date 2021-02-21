@@ -63,7 +63,7 @@ class Logform extends Component{
 
           console.log("Sending token");
 
-          TokenService.saveAuthToken( JSON.stringify({ userName, password, userID }) );
+          TokenService.saveAuthToken(userID);
 
           this.props.history.goBack();
       }

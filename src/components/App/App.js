@@ -59,7 +59,7 @@
 
       var ider = newUser.id;
 
-      TokenService.saveAuthToken( JSON.stringify({ u, p, ider }) );
+      TokenService.saveAuthToken(ider);
 
       //console.log('check2');
 
