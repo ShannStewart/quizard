@@ -21,6 +21,9 @@ class PublishedQuiz extends Component{
         console.log(userToken.password);
        console.log(userToken.userID);
         //undefined
+
+        console.log(sessionStorage.getItem("userID"));
+
         return userToken.userID
 
     }
