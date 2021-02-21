@@ -9,10 +9,20 @@ class PublishedQuiz extends Component{
 
     findKey = () => {
        // console.log('findUser ran ');
+
         var userToken = TokenService.getAuthToken();
+        // getAuthToken() {
+        //    return window.sessionStorage.getItem(config.TOKEN_KEY)
+        //  },
+
        console.log('userKey: ' + userToken)
+        //userKey: {"userName":"turtlesoup","password":"password","userID":"Z100"}
+        console.log(userToken.userName);
+        console.log(userToken.password);
        console.log(userToken.userID);
+        //undefined
         return userToken.userID
+
     }
 
     getAllQuizzes = () =>{
