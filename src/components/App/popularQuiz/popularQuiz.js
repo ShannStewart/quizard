@@ -24,16 +24,31 @@ class PopularQuiz extends Component{
          var i;
          for (i = 0; i < this.props.userList.length; i++){
                  //console.log('truth: ' + this.findAuthor(id, this.props.userList[i].quizzes))
-                 if (this.findAuthor(id, this.props.userList[i].quizzes) == true){
+                 if (this.findAuthor(id, this.props.userList[i].test) == true){
                      return this.props.userList[i].user_name;
                  }
          }
+     }
+
+     getPublishedItems = (list) =>{
+         const initalList = list;
+
+         var i;
+         var newList = [];
+
+         for (i = 0; i < initalList.length; i++){
+             if (initalList[i].published == true){
+                newList = newList.concat(initalList[i]);
+             }
+         }
+
+        return newList
      }
  
 
     render(){
           //console.log('popularQuiz ran');
-            const quizList = this.props.quizList;
+            const quizList = this.getPublishedItems(this.props.quizList);
 
             //console.log('quizList: ' + quizList)
 

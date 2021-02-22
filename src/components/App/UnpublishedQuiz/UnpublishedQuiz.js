@@ -1,5 +1,5 @@
 import {React, Component} from 'react';
-import './PublishedQuiz.css'
+import './UnpublishedQuiz.css'
 
 import TokenService from '../../../services/token-service';
 import { findUser, findQuiz, } from '../../../helper';
@@ -43,7 +43,7 @@ class PublishedQuiz extends Component{
             foundQuiz = findQuiz(this.props.quizList, userQuiz[i])
             publishCheck = foundQuiz.published;
             console.log('published: ' + publishCheck);
-            if (publishCheck == true){
+            if (publishCheck == false){
                 newQuizList = newQuizList.concat(findQuiz(this.props.quizList, userQuiz[i]));
             }   
         }
@@ -70,7 +70,7 @@ class PublishedQuiz extends Component{
 
 
         return(
-            <div className='published'>
+            <div className='unpublished'>
                 <h2 className='sectionTitle'>Your Quizzes</h2>
                 <div className='quizList'>
                     {sortedQuiz.map(quiz =>

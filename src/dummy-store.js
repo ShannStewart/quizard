@@ -5,14 +5,14 @@ export default {
             "id": "Z100",
             "user_name": "turtlesoup",
             "password": "password",
-            "quizzes": ["Q100", "Q102"],
+            "test": ["Q100", "Q102"],
             "questions": ["Y105"],
         },
         {
             "id": "Z101",
             "user_name": "boba",
             "password": "tea",
-            "quizzes": ["Q101"],
+            "test": ["Q101"],
             "questions": [],
         }
 
@@ -26,6 +26,7 @@ export default {
             "questions": ["Y100", "Y101", "Y102"],
             "count": 0,
             "modified": "2020-02-05T00:00:00.000Z",
+            "published": true,
         },
         {
             "id": "Q101",
@@ -33,13 +34,17 @@ export default {
             "questions": ["Y103", "Y104"],
             "count": 100,
             "modified": "2018-12-01T00:00:00.000Z",
+            "published": true,
+
         },
         {
             "id": "Q102",
             "name": "Data Structures",
             "questions": ["Y106", "Y107"],
             "count": 25,
-            "modified": "2019-11-01T00:00:00.000Z"
+            "modified": "2019-11-01T00:00:00.000Z",
+            "published": false,
+
         }
     
     ],
