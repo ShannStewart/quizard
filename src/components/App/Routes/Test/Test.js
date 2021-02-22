@@ -8,21 +8,33 @@ class Test extends Component{
         mark: 0,
     }
 
-    setQuiz = (title, questionaire) =>{
-        console.log('setQuiz ran');
+    checkQuiz = (q) => {
+        console.log('checkQuiz ran');
 
-        this.setState({ quiz : title });
-        this.setState({ questions : questionaire });
+        if (q.length <= 0){
+            return 0;
+        }
 
+        console.log('Quiz is populated');
+        return 1;
     }
+
 
     render(){
 
-        this.setQuiz(this.props.testTitle, this.props.testQuestions)
+        var quiz = '';
+        var questions = [];
+        
+        quiz = this.props.testTitle;
+        questions = this.props.testQuestions;
+
+        if (this.checkQuiz(questions) == 0){
+            this.props.history.push('/missing')
+        }
 
         return(
             <div className='test'>
-                <h3>{this.state.quiz}</h3>
+                <h3>{quiz}</h3>
             </div>
         )
     }   

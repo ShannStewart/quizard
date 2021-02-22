@@ -47,6 +47,15 @@ class HomeLogout extends Component{
   
 
 class Home extends Component{
+  takeQuiz = (c) => {
+    console.log('takeQuiz ran' + c);
+
+    this.props.startQuiz(c);
+
+    this.props.history.push('/test')
+
+
+  }
   
   render(){ 
     
@@ -54,8 +63,8 @@ class Home extends Component{
       <div className="Home">
         <Header/>
         {TokenService.hasAuthToken()
-                ? <HomeLogin quizList={this.props.quizList} userList={this.props.userList} publishQuiz={this.props.publishQuiz} unPublishQuiz={this.props.unPublishQuiz} takeQuiz={this.props.takeQuiz}/>
-                : <HomeLogout quizList={this.props.quizList} userList={this.props.userList} takeQuiz={this.props.takeQuiz}/>}
+                ? <HomeLogin quizList={this.props.quizList} userList={this.props.userList} publishQuiz={this.props.publishQuiz} unPublishQuiz={this.props.unPublishQuiz} takeQuiz={this.takeQuiz}/>
+                : <HomeLogout quizList={this.props.quizList} userList={this.props.userList} takeQuiz={this.takeQuiz}/>}
       </div>
     );
   }

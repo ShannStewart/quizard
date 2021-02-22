@@ -1,5 +1,5 @@
   //import './App.css';
-  import { Route, Switch } from 'react-router-dom';
+  import { Redirect, Route, Switch } from 'react-router-dom';
   import React, { Component } from 'react';
 
   import Home from './Routes/Home/Home';
@@ -145,9 +145,11 @@
 
     }
 
-    takeQuiz = (c) => {
-      console.log('takeQuiz ran' + c);
+    startQuiz = (c) => {
+      console.log('startQuiz ran' + c);
       var chosenQuiz= findQuiz(this.state.quizzes, c);
+
+     // console.log(chosenQuiz.name);
 
       var chosenQuestions = [];
     
@@ -157,7 +159,10 @@
         //console.log(chosenQuestions);
       }
 
-      this.setState({ test : chosenQuestions })
+      console.log(chosenQuestions);
+
+      this.setState({ testTitle : chosenQuiz.name });
+      this.setState({ test : chosenQuestions });
 
       chosenQuiz.count= chosenQuiz.count + 1;
       const list = this.state.quizzes;
@@ -165,7 +170,6 @@
       newList = newList.concat(chosenQuiz);
       this.setState({ quizzes : newList });
 
-      this.history.push('/test')
     }
     
     destroyQuiz = () => {
@@ -186,7 +190,7 @@
                     quizList={this.state.quizzes}
                     publishQuiz ={this.publishQuiz}
                     unPublishQuiz = {this.unPublishQuiz}
-                    takeQuiz = {this.takeQuiz}
+                    startQuiz = {this.startQuiz}
                 />
                   )}
                 />
@@ -225,15 +229,27 @@
                       )} 
                     />
                 }
-              <Route
+                 <Route path={'/test'} render={routeProps => (
+                  <Test
+                    {...routeProps}
+                    testTitle={this.state.testTitle}
+                    testQuestions={this.state.test}
+                    /> 
+                )}
+                  />
+               <Route
+               path='/missing'
                 render={routeProps => (
                   <Missing
                   {...routeProps}/>
                   )}
               />
-                {(this.state.test.length > 0)
-                  ?<Route path={'/quiz'} render={routeProps => ( <Test {...routeProps} testTitle={this.state.testTitle} testQuestions={this.state.test} destroryQuiz={this.destroyQuiz} /> )} />
-                  :<Route render={routeProps => ( <Missing {...routeProps}/> ) } /> }
+                <Route
+                render={routeProps => (
+                  <Missing
+                  {...routeProps}/>
+                  )}
+              />
             </Switch>
           </div>
       );
