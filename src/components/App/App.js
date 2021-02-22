@@ -6,6 +6,7 @@
   import Logform from './Routes/Logform/Logform';
   import Register from './Routes/Register/Register';
   import Missing from './Routes/Missing/Missing';
+  import Test from './Routes/Test/Test';
 
   import dummyStore from '../../dummy-store';
   import { findUser, findQuiz, findQuestion, getQuizzesForUsers, getQuestionsForUsers, getQuestionsforQuizzes, countQuizzesForUser, countQuestionsForUser, countQuestionsForQuiz} from '../../helper';
@@ -19,7 +20,9 @@
       questions: [],
       userID: 0,
       quizID: 0,
-      questionID: 0
+      questionID: 0,
+      testTitle: '',
+      test: [],
   };
 
   componentDidMount() {
@@ -148,15 +151,26 @@
 
       var chosenQuestions = [];
     
-      var j = 'question';
       var i;
       for (i=0; i < chosenQuiz.questions.length; i++){
         chosenQuestions = chosenQuestions.concat(findQuestion(this.state.questions, chosenQuiz.questions[i]));
         //console.log(chosenQuestions);
       }
+
+      this.setState({ test : chosenQuestions })
+
+      chosenQuiz.count= chosenQuiz.count + 1;
+      const list = this.state.quizzes;
+      var newList = list.filter(quiz => quiz.id !== c);
+      newList = newList.concat(chosenQuiz);
+      this.setState({ quizzes : newList });
+
+      this.history.push('/test')
     }
     
-    
+    destroyQuiz = () => {
+      console.log('destroyQuiz ran');
+    }
     
     render(){ 
       return (
@@ -217,6 +231,9 @@
                   {...routeProps}/>
                   )}
               />
+                {(this.state.test.length > 0)
+                  ?<Route path={'/quiz'} render={routeProps => ( <Test {...routeProps} testTitle={this.state.testTitle} testQuestions={this.state.test} destroryQuiz={this.destroyQuiz} /> )} />
+                  :<Route render={routeProps => ( <Missing {...routeProps}/> ) } /> }
             </Switch>
           </div>
       );
