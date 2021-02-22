@@ -94,6 +94,67 @@
       this.setState({ quizzes: newQuizList });
       
     }
+
+    publishQuiz = (a) => {
+  //    console.log('publishedQuiz ran');
+
+      var rebuildQuiz = findQuiz(this.state.quizzes, a);
+
+      var date = new Date();
+
+      rebuildQuiz.published = true;
+      rebuildQuiz.modified = date;
+
+      const list = this.state.quizzes;
+      //console.log(list);
+
+        var newList = list.filter(quiz => quiz.id !== a);
+      //  console.log(newList);
+        
+        newList = newList.concat(rebuildQuiz);
+      //  console.log(newList);
+
+        this.setState({ quizzes : newList });
+
+    }
+
+    unPublishQuiz = (b) => {
+    //  console.log('unpublishedQuiz ran' + b);
+
+      var rebuildQuiz = findQuiz(this.state.quizzes, b);
+     // console.log(rebuildQuiz);
+
+      rebuildQuiz.published = false;
+      rebuildQuiz.count= 0;
+
+    //  console.log(rebuildQuiz);
+
+      const list = this.state.quizzes;
+   //   console.log(list);
+
+        var newList = list.filter(quiz => quiz.id !== b);
+     //   console.log(newList);
+        
+        newList = newList.concat(rebuildQuiz);
+      //  console.log(newList);
+
+        this.setState({ quizzes : newList });
+
+    }
+
+    takeQuiz = (c) => {
+      console.log('takeQuiz ran' + c);
+      var chosenQuiz= findQuiz(this.state.quizzes, c);
+    
+      var j = 'question';
+      var i;
+      for (i=0; i < chosenQuiz.length; i++){
+        eval('var ' + j + i + '={};');
+        console.log(eval('var' + j + i));
+      }
+    }
+    
+    
     
     render(){ 
       return (
@@ -107,28 +168,47 @@
                     {...routeProps}
                     userList={this.state.users}
                     quizList={this.state.quizzes}
+                    publishQuiz ={this.publishQuiz}
+                    unPublishQuiz = {this.unPublishQuiz}
+                    takeQuiz = {this.takeQuiz}
                 />
                   )}
                 />
-                <Route
-                path={'/login'}
-                render={routeProps => (
-                  <Logform
-                    {...routeProps}
-                    existUser={this.state.users}
+                  {TokenService.hasAuthToken()
+                  ?  <Route
+                  render={routeProps => (
+                    <Missing
+                    {...routeProps}/>
+                    )}
+                    />
+                  : <Route
+                  path={'/login'}
+                  render={routeProps => (
+                    <Logform
+                      {...routeProps}
+                      existUser={this.state.users}
+                    />
+                    )}
                   />
+                  }
+                {TokenService.hasAuthToken()
+                ?  <Route
+                render={routeProps => (
+                  <Missing
+                  {...routeProps}/>
                   )}
-                />
-              <Route
-              path={'/signup'}
-              render={routeProps => (
-                <Register
-                {...routeProps}
-                existUser={this.state.users}
-                addNewUser={this.userSubmit}
-                />
-              )} 
-              />
+                  />
+                :   <Route
+                    path={'/signup'}
+                    render={routeProps => (
+                      <Register
+                      {...routeProps}
+                      existUser={this.state.users}
+                      addNewUser={this.userSubmit}
+                      />
+                      )} 
+                    />
+                }
               <Route
                 render={routeProps => (
                   <Missing

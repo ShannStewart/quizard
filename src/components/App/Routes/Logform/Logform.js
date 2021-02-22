@@ -22,8 +22,8 @@ class Logform extends Component{
         var userName = ev.target.user_name.value;
         var password = ev.target.password.value;
 
-        console.log("checking username: " + userName);
-        console.log("checking password: " + password);
+       // console.log("checking username: " + userName);
+       // console.log("checking password: " + password);
 
         var userMiss = document.getElementById("usernameMissing");
         var passMiss = document.getElementById("passwordMissing");
@@ -61,7 +61,7 @@ class Logform extends Component{
           const userID = userCheck.id;
           //console.log('userID is: ' + userID);
 
-          console.log("Sending token");
+          //console.log("Sending token");
 
           TokenService.saveAuthToken(userID);
 

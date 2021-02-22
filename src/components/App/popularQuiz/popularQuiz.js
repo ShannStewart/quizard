@@ -61,7 +61,7 @@ class PopularQuiz extends Component{
                 <h2 className='sectionTitle'>Popular Quizzes</h2>
                 <div className='quizList'>
                     {sortedQuiz.map(quiz =>
-                        <QuizPanel key={quiz.id} title={quiz.name} views={quiz.count} author={this.getUserList(quiz.id)}/>
+                        <QuizPanel key={quiz.id} quizID={quiz.id} title={quiz.name} views={quiz.count} author={this.getUserList(quiz.id)} takeQuiz={this.props.takeQuiz}/>
                     )}
                 </div>
              </div>

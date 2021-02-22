@@ -51,7 +51,7 @@ class NewQuiz extends Component{
 
         //console.log('quizList: ' + quizList)
 
-        const sortedQuiz = quizList.sort((a,b) => b.modified - a.modified)
+        const sortedQuiz = quizList.sort((a,b) => a.modified - b.modified)
 
         //console.log(this.getUserList("Q100"));
 
@@ -62,7 +62,7 @@ class NewQuiz extends Component{
                 <h2 className='sectionTitle'>New Quizzes</h2>
                 <div className='quizList'>
                     {sortedQuiz.map(quiz =>
-                        <QuizPanel key={quiz.id} title={quiz.name} views={quiz.count} author={this.getUserList(quiz.id)}/>
+                        <QuizPanel key={quiz.id} quizID={quiz.id} title={quiz.name} views={quiz.count} author={this.getUserList(quiz.id)} takeQuiz={this.props.takeQuiz}/>
                     )}
                 </div>
             </div>

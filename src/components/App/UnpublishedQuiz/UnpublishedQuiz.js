@@ -42,7 +42,7 @@ class PublishedQuiz extends Component{
             //console.log(findQuiz(this.props.quizList, userQuiz[i]));
             foundQuiz = findQuiz(this.props.quizList, userQuiz[i])
             publishCheck = foundQuiz.published;
-            console.log('published: ' + publishCheck);
+            //console.log('published: ' + publishCheck);
             if (publishCheck == false){
                 newQuizList = newQuizList.concat(findQuiz(this.props.quizList, userQuiz[i]));
             }   
@@ -52,7 +52,7 @@ class PublishedQuiz extends Component{
     }
 
     getUser = () =>{
-        console.log('getUser ran');
+        //console.log('getUser ran');
         var userToken = TokenService.getAuthToken();
         
         var quizzer = findUser(this.props.userList, userToken);
@@ -71,10 +71,10 @@ class PublishedQuiz extends Component{
 
         return(
             <div className='unpublished'>
-                <h2 className='sectionTitle'>Your Quizzes</h2>
+                <h2 className='sectionTitle'>Quizzes In Progress</h2>
                 <div className='quizList'>
                     {sortedQuiz.map(quiz =>
-                        <UserPanel key={quiz.id} title={quiz.name} views={quiz.count} author={this.getUser()}/>
+                        <UserPanel key={quiz.id} quizID={quiz.id} title={quiz.name} views={quiz.count} published={quiz.published} author={this.getUser()} publishButton={this.props.publishQuiz}/>
                     )}
                 </div>
             </div>

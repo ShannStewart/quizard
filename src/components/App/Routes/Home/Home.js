@@ -18,10 +18,9 @@ class HomeLogin extends Component{
       <main>
            <section className='halfSection userQuiz'>
                 <div>
-                    <h2 className='sectionTitle'>Quizzes In Progress</h2>
-                   <UnpublishedQuiz quizList={this.props.quizList} userList={this.props.userList}/>
+                   <UnpublishedQuiz quizList={this.props.quizList} userList={this.props.userList} publishQuiz={this.props.publishQuiz}/>
                   </div>
-                <PublishedQuiz quizList={this.props.quizList} userList={this.props.userList}/>
+                <PublishedQuiz quizList={this.props.quizList} userList={this.props.userList} unPublishQuiz={this.props.unPublishQuiz}/>
               </section>
             <section className='halfSection otherQuiz'>
               <NewQuiz quizList={this.props.quizList} userList={this.props.userList}/>
@@ -38,8 +37,8 @@ class HomeLogout extends Component{
     return(
       <main>
       <section className='fullSection otherQuiz'>     
-            <NewQuiz quizList={this.props.quizList} userList={this.props.userList}/>
-            <PopularQuiz quizList={this.props.quizList} userList={this.props.userList}/>
+            <NewQuiz quizList={this.props.quizList} userList={this.props.userList} takeQuiz={this.props.takeQuiz}/>
+            <PopularQuiz quizList={this.props.quizList} userList={this.props.userList} takeQuiz={this.props.takeQuiz}/>
         </section>
       </main>
     )
@@ -54,7 +53,7 @@ class Home extends Component{
       <div className="Home">
         <Header/>
         {TokenService.hasAuthToken()
-                ? <HomeLogin quizList={this.props.quizList} userList={this.props.userList}/>
+                ? <HomeLogin quizList={this.props.quizList} userList={this.props.userList} publishQuiz={this.props.publishQuiz} unPublishQuiz={this.props.unPublishQuiz}/>
                 : <HomeLogout quizList={this.props.quizList} userList={this.props.userList}/>}
       </div>
     );

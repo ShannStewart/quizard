@@ -6,9 +6,6 @@ class Missing extends Component{
         return(
             <div>
                 <header>
-                    <button class='backButton'>
-                        Return
-                    </button>
                     <div class='sansButton'>
                         <h1 class='siteTitle'>Quizard</h1>
                     </div>
