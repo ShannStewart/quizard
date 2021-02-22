@@ -2,9 +2,11 @@ import { React, Component } from 'react';
 
 class QuizPanel extends Component{
     handleQuizTaking = (id) =>{
-        console.log('handleQuizTaking ' + id);
+       // console.log('handleQuizTaking ' + id);
 
         this.props.takeQuiz(id);
+       // this.props.takeQuiz();
+
     }
 
     render(){

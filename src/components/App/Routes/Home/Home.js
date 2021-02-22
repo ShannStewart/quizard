@@ -23,8 +23,8 @@ class HomeLogin extends Component{
                 <PublishedQuiz quizList={this.props.quizList} userList={this.props.userList} unPublishQuiz={this.props.unPublishQuiz}/>
               </section>
             <section className='halfSection otherQuiz'>
-              <NewQuiz quizList={this.props.quizList} userList={this.props.userList}/>
-              <PopularQuiz quizList={this.props.quizList} userList={this.props.userList}/>
+              <NewQuiz quizList={this.props.quizList} userList={this.props.userList} takeQuiz={this.props.takeQuiz}/>
+              <PopularQuiz quizList={this.props.quizList} userList={this.props.userList} takeQuiz={this.props.takeQuiz}/>
               </section>
       </main>
     )
@@ -49,12 +49,13 @@ class HomeLogout extends Component{
 class Home extends Component{
   
   render(){ 
+    
     return (
       <div className="Home">
         <Header/>
         {TokenService.hasAuthToken()
-                ? <HomeLogin quizList={this.props.quizList} userList={this.props.userList} publishQuiz={this.props.publishQuiz} unPublishQuiz={this.props.unPublishQuiz}/>
-                : <HomeLogout quizList={this.props.quizList} userList={this.props.userList}/>}
+                ? <HomeLogin quizList={this.props.quizList} userList={this.props.userList} publishQuiz={this.props.publishQuiz} unPublishQuiz={this.props.unPublishQuiz} takeQuiz={this.props.takeQuiz}/>
+                : <HomeLogout quizList={this.props.quizList} userList={this.props.userList} takeQuiz={this.props.takeQuiz}/>}
       </div>
     );
   }

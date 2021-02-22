@@ -145,12 +145,14 @@
     takeQuiz = (c) => {
       console.log('takeQuiz ran' + c);
       var chosenQuiz= findQuiz(this.state.quizzes, c);
+
+      var chosenQuestions = [];
     
       var j = 'question';
       var i;
-      for (i=0; i < chosenQuiz.length; i++){
-        eval('var ' + j + i + '={};');
-        console.log(eval('var' + j + i));
+      for (i=0; i < chosenQuiz.questions.length; i++){
+        chosenQuestions = chosenQuestions.concat(findQuestion(this.state.questions, chosenQuiz.questions[i]));
+        //console.log(chosenQuestions);
       }
     }
     
