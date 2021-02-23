@@ -17,7 +17,11 @@ class UserPanel extends Component{
                 <div><h3>{this.props.title}</h3></div>
                 <div>
                     <div><h4>By {this.props.author}</h4><h4>Taken: {this.props.views}</h4></div>
-                    <div><button>Take Test</button></div>
+                    <div>
+                        {!this.props.published 
+                         ?<button>Edit</button>
+                         :<div></div>}
+                        </div>
                         <div>
                             {this.props.published 
                             ? <button onClick={() => this.handlePublish(quizID)}>Unpublish</button>

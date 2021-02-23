@@ -155,6 +155,12 @@
 
      // console.log(chosenQuiz.name);
 
+      this.setState({ testTitle : ''});
+      this.setState({ test : [] });
+      this.setState({ current : 0});
+      this.setState({ points : 0});
+      this.setState({ total : 0 });
+
       var chosenQuestions = [];
     
       var i;
@@ -184,18 +190,6 @@
       var newList = list.filter(quiz => quiz.id !== c);
       newList = newList.concat(chosenQuiz);
       this.setState({ quizzes : newList });
-
-    }
-
-      
-    destroyQuiz = () => {
-      console.log('destroyQuiz ran');
-    }
-
-    finishQuiz = (x) =>{
-      console.log('finishQuiz ran');
-
-
 
     }
 
@@ -236,7 +230,30 @@
                 />
                   )}
                 />
-                  {TokenService.hasAuthToken()
+                 <Route path={'/test'} render={routeProps => (
+                  <Test
+                    {...routeProps}
+                    testTitle={this.state.testTitle}
+                    testQuestions={this.state.test}
+                    current={this.state.current}
+                    total={this.state.total}
+                    points={this.state.points}
+                    gainPoint={this.gainPoint}
+                    noPoint={this.noPoint}
+                    questionList = {this.state.questions}
+                    /> 
+                )}
+                  />
+                <Route
+                  path='/results'
+                  render={routeProps => (
+                    <Results
+                    {...routeProps}
+                    total={this.state.total}
+                    points={this.state.points}/>
+                  )}
+                />
+                 {TokenService.hasAuthToken()
                   ?  <Route
                   render={routeProps => (
                     <Missing
@@ -271,29 +288,6 @@
                       )} 
                     />
                 }
-                 <Route path={'/test'} render={routeProps => (
-                  <Test
-                    {...routeProps}
-                    testTitle={this.state.testTitle}
-                    testQuestions={this.state.test}
-                    current={this.state.current}
-                    total={this.state.total}
-                    points={this.state.points}
-                    gainPoint={this.gainPoint}
-                    noPoint={this.noPoint}
-                    questionList = {this.state.questions}
-                    /> 
-                )}
-                  />
-                <Route
-                  path='/results'
-                  render={routeProps => (
-                    <Results
-                    {...routeProps}
-                    total={this.state.total}
-                    points={this.state.points}/>
-                  )}
-                />
                <Route
                path='/missing'
                 render={routeProps => (
