@@ -289,7 +289,9 @@
                   path='/results'
                   render={routeProps => (
                     <Results
-                    {...routeProps}/>
+                    {...routeProps}
+                    total={this.state.total}
+                    points={this.state.points}/>
                   )}
                 />
                <Route
