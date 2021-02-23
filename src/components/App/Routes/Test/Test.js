@@ -32,9 +32,36 @@ class Test extends Component{
             this.props.history.push('/missing')
         }
 
+        console.log(questions);
+
+        var newQuestions = questions
+            .map((a) => ({sort: Math.random(), value: a}))
+            .sort((a, b) => a.sort - b.sort)
+            .map((a) => a.value)
+
+        console.log(newQuestions);
+
+        var current = 0;
+
+        var answers = newQuestions[current].choices;
+
+        answers = answers.concat(newQuestions[current].answer);
+        answers = answers
+            .map((a) => ({sort: Math.random(), value: a}))
+            .sort((a, b) => a.sort - b.sort)
+            .map((a) => a.value)
+
+
+        console.log(answers);
+
+        answers = answers.keys();
+
+        console.log(answers);
+
         return(
             <div className='test'>
-                <h3>{quiz}</h3>
+                <h3>{newQuestions[current].question}</h3>
+
             </div>
         )
     }   

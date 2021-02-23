@@ -146,7 +146,7 @@
     }
 
     startQuiz = (c) => {
-      console.log('startQuiz ran' + c);
+      //console.log('startQuiz ran' + c);
       var chosenQuiz= findQuiz(this.state.quizzes, c);
 
      // console.log(chosenQuiz.name);
@@ -159,7 +159,7 @@
         //console.log(chosenQuestions);
       }
 
-      console.log(chosenQuestions);
+     // console.log(chosenQuestions);
 
       this.setState({ testTitle : chosenQuiz.name });
       this.setState({ test : chosenQuestions });

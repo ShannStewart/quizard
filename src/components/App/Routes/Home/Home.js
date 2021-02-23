@@ -48,7 +48,7 @@ class HomeLogout extends Component{
 
 class Home extends Component{
   takeQuiz = (c) => {
-    console.log('takeQuiz ran' + c);
+   // console.log('takeQuiz ran' + c);
 
     this.props.startQuiz(c);
 
