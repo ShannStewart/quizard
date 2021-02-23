@@ -82,7 +82,12 @@
     questionSubmit = (q, t, pi) => {
       console.log('questionSubmit ran');
 
-      var newQuestion = {"id": "newQuestion" + this.state.questionID, "question": q, "answer": t, "choices": [] };
+      var newID = "newQuestion" + this.state.quizID;
+
+      var choices = [];
+      choices = pi;
+
+      var newQuestion = {"id": newID, "question": q, "answer": t, "choices": choices };
 
       var newQuestionID = this.state.questionID + 1;
       this.setState({questionID: newQuestionID});
@@ -124,7 +129,34 @@
        //console.log(this.state.quizzes);
      }
      );
+    }
 
+    deleteQuestion = (id) =>{
+      console.log('deleteQuestion ran ' + id);
+
+      var questionList = this.state.questions;
+      console.log(questionList);
+      var newList = questionList.filter(question => question.id !== id);
+      console.log(newList);
+
+        var userToken = TokenService.getAuthToken();
+  
+      var quizzer = findUser(this.state.users, userToken);
+
+      var userQuestion = quizzer.questions;
+      var newUserQuestion = userQuestion.filter(question => question !== id);
+
+      quizzer.questions = newUserQuestion;
+
+      var userList = this.state.users;
+
+      var newUserList = userList.filter(user => user.id !== userToken)
+      newUserList = newUserList.concat(quizzer);
+
+      this.setState({ questions : newList, users: newUserList }, () => {
+        console.log(this.state.questions)
+      }  
+      );
       
     }
 
@@ -309,6 +341,7 @@
                         questionList={this.state.questions}
                         publishQuiz ={this.publishQuiz}
                         unPublishQuiz = {this.unPublishQuiz}
+                        deleteQuestion = {this.deleteQuestion}
                         />
                     )}
                     />
@@ -335,6 +368,7 @@
                         questionList={this.state.questions}
                         publishQuiz ={this.publishQuiz}
                         unPublishQuiz = {this.unPublishQuiz}
+                        addNewQuestion = {this.questionSubmit}
                         />
                     )}
                     />

@@ -14,6 +14,7 @@ class QuizHeader extends Component{
           <section className='user'>
             <Link to='/'>Return</Link>
             <Link to='create/newQuiz'>Create Quiz</Link>
+            <Link to='create/newQuestion'>Create Question</Link>
             </section>
         </header>
       </div>

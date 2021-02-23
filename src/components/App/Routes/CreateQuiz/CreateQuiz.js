@@ -8,6 +8,7 @@ import { findUser, findQuiz, findQuestion, getQuizzesForUsers, getQuestionsForUs
 
 import QuizHeader from '../../QuizHeader/QuizHeader';
 import UserPanel from '../../UserPanel/UserPanel';
+import QuestionPanel from '../../QuestionPanel/QuestionPanel';
 
 class CreateQuiz extends Component{
 
@@ -29,6 +30,33 @@ class CreateQuiz extends Component{
         return quizzerQuiz
     }
 
+    getAllQuestions = () =>{
+        //console.log('getAllQuizzes ran');
+        var userToken = TokenService.getAuthToken();
+        //console.log('userKey: ' + userToken);
+
+        var quizzer = findUser(this.props.userList, userToken);
+        //console.log(quizzer);
+
+        var quizzerQuestion = Array.from(quizzer.questions);
+        
+        var newQuestionList = [];
+
+        var foundQuestion;
+
+        var i;
+        for (i = 0; i < quizzerQuestion.length; i++){
+         //   console.log(findQuestion(this.props.questionList, quizzerQuestion[i]));
+            foundQuestion = findQuestion(this.props.questionList, quizzerQuestion[i])
+            newQuestionList = newQuestionList.concat(findQuestion(this.props.questionList, quizzerQuestion[i]));
+        }
+
+        console.log(newQuestionList);
+
+        return newQuestionList;
+    }
+
+
     quizUnpublished = () =>{
         //console.log('quizDetails ran');
 
@@ -42,7 +70,7 @@ class CreateQuiz extends Component{
 
         var i;
         for (i = 0; i < userQuiz.length; i++){
-            console.log(findQuiz(this.props.quizList, userQuiz[i]));
+            //console.log(findQuiz(this.props.quizList, userQuiz[i]));
             foundQuiz = findQuiz(this.props.quizList, userQuiz[i])
             publishCheck = foundQuiz.published;
             //console.log('published: ' + publishCheck);
@@ -98,6 +126,13 @@ class CreateQuiz extends Component{
         const publishedList = this.quizPublished();
 
         const otherSortedQuiz = publishedList.sort((a,b) => b.modified - a.modified)
+        
+        var yourQuestions = []
+        
+        yourQuestions = this.getAllQuestions();
+        
+
+        console.log(yourQuestions);
 
         return(
             <div className='createQuiz'>
@@ -117,6 +152,14 @@ class CreateQuiz extends Component{
                             <UserPanel key={quiz.id} quizID={quiz.id} title={quiz.name} views={quiz.count} published={quiz.published} author={this.getUser()} publishButton={this.props.unPublishQuiz}/>
                         )}
                     </div>
+                </div>
+                <div className='questions'>
+                        <h2 className='sectionTitle'>Questions</h2>
+                        <div className='createQuizList'>
+                            {yourQuestions.map(question =>
+                                <QuestionPanel key={question.id} id={question.id} question={question.question} answer={question.answer} choices={question.choices} used={question.used} deleteQuestion={this.props.deleteQuestion}/>
+                                )}
+                            </div>
                 </div>
             </div>
         )
