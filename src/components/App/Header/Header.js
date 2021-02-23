@@ -29,7 +29,9 @@ export class HeaderIn extends Component{
   render(){
     return(
       <div className='headerBar'>
-             <p>New Quiz</p>
+             <div> <Link to='/create'>
+                      My Profile
+                  </Link></div>
                   <Log/>
       </div>
     )
@@ -45,8 +47,8 @@ class Header extends Component{
           <h1 className='siteTitle'>Quizard</h1>
           <section className='user'>
           {TokenService.hasAuthToken()
-                ? <HeaderIn/>
-                : <HeaderOut/>}
+                ? <Route render={routeProps => (<HeaderIn {...routeProps}/>)}/>
+                : <Route render={routeProps => (<HeaderOut {...routeProps}/>)}/>}
             </section>
         </header>
       </div>

@@ -254,14 +254,7 @@
                     points={this.state.points}/>
                   )}
                 />
-                 {TokenService.hasAuthToken()
-                  ?  <Route
-                  render={routeProps => (
-                    <Missing
-                    {...routeProps}/>
-                    )}
-                    />
-                  : <Route
+                <Route
                   path={'/login'}
                   render={routeProps => (
                     <Logform
@@ -270,15 +263,7 @@
                     />
                     )}
                   />
-                  }
-                {TokenService.hasAuthToken()
-                ?  <Route
-                render={routeProps => (
-                  <Missing
-                  {...routeProps}/>
-                  )}
-                  />
-                :   <Route
+                  <Route
                     path={'/signup'}
                     render={routeProps => (
                       <Register
@@ -288,22 +273,14 @@
                       />
                       )} 
                     />
-                }
-                  {TokenService.hasAuthToken()
-                  ? <Route
+                  <Route
                     path='/create'
                     render={routeProps => (
                       <CreateQuiz
                         {...routeProps}/>
                     )}
                     />
-                  : <Route
-                  render={routeProps => (
-                    <Missing
-                    {...routeProps}/>
-                    )}
-                    />
-                  }
+
                <Route
                path='/missing'
                 render={routeProps => (

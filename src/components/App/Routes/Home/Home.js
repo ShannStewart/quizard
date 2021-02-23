@@ -1,5 +1,6 @@
 import './Home.css';
 import { Component } from 'react';
+import { Route, Link, Switch } from 'react-router-dom'
 
 import Header from '../../Header/Header';
 import TokenService from '../../../../services/token-service';
@@ -61,7 +62,7 @@ class Home extends Component{
     
     return (
       <div className="Home">
-        <Header/>
+        <Route render={routeProps => (<Header {...routeProps}/>)}/>
         {TokenService.hasAuthToken()
                 ? <HomeLogin quizList={this.props.quizList} userList={this.props.userList} publishQuiz={this.props.publishQuiz} unPublishQuiz={this.props.unPublishQuiz} takeQuiz={this.takeQuiz}/>
                 : <HomeLogout quizList={this.props.quizList} userList={this.props.userList} takeQuiz={this.takeQuiz}/>}

@@ -4,6 +4,8 @@ import './Register.css';
 import { Button, Input, Required } from '../../../Utils/Utils'
 import AuthApiService from '../../../../services/auth-api-service'
 
+import TokenService from '../../../../services/token-service'
+
 class Register extends Component{
     static defaultProps = {
         onRegistrationSuccess: () => {}
@@ -57,6 +59,7 @@ class Register extends Component{
         //console.log('registration form submitted')
         //console.log({ userName, password })
     
+        TokenService.clearAuthToken();
        this.props.addNewUser(userName, password);
 
        this.props.history.goBack();

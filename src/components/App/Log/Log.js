@@ -9,14 +9,14 @@ class Log extends Component{
 
     handleLogoutClick = () => {
         TokenService.clearAuthToken();
-        window.location.reload();
+        //window.location.reload();
        }   
 
     render(){
         return(
             <div className='Log'>
             {TokenService.hasAuthToken()
-                ?  <button onClick={this.handleLogoutClick}>Log Out</button>
+                ?  <Link to='/' onClick={this.handleLogoutClick}>Log Out</Link>
                 :  <Link to='/login'> Log in </Link>}
             </div>
         )

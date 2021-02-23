@@ -6,15 +6,16 @@ class Missing extends Component{
         return(
             <div>
                 <header>
-                    <div class='sansButton'>
-                        <h1 class='siteTitle'>Quizard</h1>
+                    <div className='sansButton'>
+                        <h1 className='siteTitle'>Quizard</h1>
                     </div>
                 </header>
                 <main>
-                <section class='fullSection'>
-                    <div class='missingPage'>
+                <section className='fullSection'>
+                    <div className='missingPage'>
                     <h3>Sorry, the page you were looking for doesn't not exist.</h3>
-                    </div>>
+                    <button onClick={this.props.history.push('/')}>Return</button>
+                    </div>
                     </section>
                 </main>
             </div>
