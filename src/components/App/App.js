@@ -8,7 +8,13 @@
   import Missing from './Routes/Missing/Missing';
   import Test from './Routes/Test/Test';
   import Results from './Routes/Results/Results';
+
   import CreateQuiz from './Routes/CreateQuiz/CreateQuiz';
+
+  import EditQuiz from './Routes/EditQuiz/EditQuiz';
+  import NewQuiz from './Routes/NewQuiz/NewQuiz';
+
+  import NewQuestion from './Routes/NewQuestion/NewQuestion';
 
   import dummyStore from '../../dummy-store';
   import { findUser, findQuiz, findQuestion, getQuizzesForUsers, getQuestionsForUsers, getQuestionsforQuizzes, countQuizzesForUser, countQuestionsForUser, countQuestionsForQuiz} from '../../helper';
@@ -43,7 +49,7 @@
 
     }
 
-    quizGiftUser = (b) => {
+    giftQuizUser = (b) => {
       console.log('quizGiftUser ran');
 
       var giftedUser = findUser();
@@ -87,19 +93,38 @@
 
     }
 
-    quizSubmit = (x, y, z) => {
+    quizSubmit = (x) => {
       console.log('quizSubmit ran');
 
       var date = new Date();
 
-      var newQuiz = {"id": "newQuiz" + this.state.quizID, "name": x, "questions": y, "modified": date, "count": 0};
+      var newID = "newQuiz" + this.state.quizID;
+
+      var newQuiz = {"id": newID, "name": x, "questions": [], "modified": date, "count": 0, "published": false};
+    //  console.log(newQuiz);
 
       var newQuizID = this.state.quizID + 1;
-      this.setState({quizID: newQuizID});
-
       
       var newQuizList = this.state.quizzes.concat(newQuiz);
-      this.setState({ quizzes: newQuizList });
+      
+     // console.log(newQuizList);
+
+      var userToken = TokenService.getAuthToken();
+  //   console.log(userToken)
+
+      var quizzer = findUser(this.state.users, userToken);
+   //   console.log(quizzer);
+     quizzer.test = quizzer.test.concat(newID);
+
+    var list = this.state.users;
+
+     var newList = list.filter(user => user.id !== userToken)
+     newList = newList.concat(quizzer);
+     this.setState({ quizID: newQuizID, quizzes : newQuizList, users: newList }, () => {
+       //console.log(this.state.quizzes);
+     }
+     );
+
       
     }
 
@@ -274,6 +299,7 @@
                       )} 
                     />
                   <Route
+                    exact
                     path='/create'
                     render={routeProps => (
                       <CreateQuiz
@@ -286,7 +312,40 @@
                         />
                     )}
                     />
-
+                     <Route
+                    exact
+                    path='/create/newQuiz'
+                    render={routeProps => (
+                      <NewQuiz
+                        {...routeProps}
+                        userList={this.state.users}
+                        quizList={this.state.quizzes}
+                        questionList={this.state.questions}
+                        addNewQuiz={this.quizSubmit}
+                        />
+                    )}
+                    />
+                  <Route
+                    path='/create/newQuestion'
+                    render={routeProps => (
+                      <NewQuestion
+                        {...routeProps}
+                        userList={this.state.users}
+                        quizList={this.state.quizzes}
+                        questionList={this.state.questions}
+                        publishQuiz ={this.publishQuiz}
+                        unPublishQuiz = {this.unPublishQuiz}
+                        />
+                    )}
+                    />
+                <Route
+                path='/create/quiz/:quizId'
+                render={routeProps => {
+                  const {quizId} = routeProps.match.params;
+                  const quiz = findQuiz(this.state.quizzes, quizId);
+                  return <EditQuiz {...routeProps} quiz={quiz}/>
+                }}
+                />
                <Route
                path='/missing'
                 render={routeProps => (

@@ -3,12 +3,12 @@
     flex-direction: column;
 }
 
-.quizList{
+.createQuizList{
     display: flex;
     flex-direction: column;
 }
 
-.quizList div{
+.createQuizList div{
     width: 400px;
 }
 
@@ -18,7 +18,7 @@
         width: 99%;
     }
 
-    .quizList{
+    .createQuizList{
         display: flex;
         flex-direction: row;
         justify-content: space-evenly;

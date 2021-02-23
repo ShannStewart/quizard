@@ -1,9 +1,12 @@
 import { React, Component } from 'react'
 import './CreateQuiz.css'
+import { Redirect, Route, Switch } from 'react-router-dom';
+
 
 import TokenService from '../../../../services/token-service';
 import { findUser, findQuiz, findQuestion, getQuizzesForUsers, getQuestionsForUsers, getQuestionsforQuizzes, countQuizzesForUser, countQuestionsForUser, countQuestionsForQuiz} from '../../../../helper';
 
+import QuizHeader from '../../QuizHeader/QuizHeader';
 import UserPanel from '../../UserPanel/UserPanel';
 
 class CreateQuiz extends Component{
@@ -17,6 +20,7 @@ class CreateQuiz extends Component{
         //console.log(quizzer);
 
         var quizzerQuiz = Array.from(quizzer.test);
+        
         //console.log(quizzerQuiz);
 
         var quizzerUser = quizzer.user_name;
@@ -38,7 +42,7 @@ class CreateQuiz extends Component{
 
         var i;
         for (i = 0; i < userQuiz.length; i++){
-            //console.log(findQuiz(this.props.quizList, userQuiz[i]));
+            console.log(findQuiz(this.props.quizList, userQuiz[i]));
             foundQuiz = findQuiz(this.props.quizList, userQuiz[i])
             publishCheck = foundQuiz.published;
             //console.log('published: ' + publishCheck);
@@ -97,9 +101,10 @@ class CreateQuiz extends Component{
 
         return(
             <div className='createQuiz'>
+                <Route render={routeProps=> (<QuizHeader {...routeProps}/>)}/>
                     <div className='unpublished'>
                         <h2 className='sectionTitle'>Quizzes In Progress</h2>
-                        <div className='quizList'>
+                        <div className='createQuizList'>
                         {sortedQuiz.map(quiz =>
                             <UserPanel key={quiz.id} quizID={quiz.id} title={quiz.name} views={quiz.count} published={quiz.published} author={this.getUser()} publishButton={this.props.publishQuiz}/>
                         )}
@@ -107,7 +112,7 @@ class CreateQuiz extends Component{
                 </div>
                 <div className='published'>
                     <h2 className='sectionTitle'>Your Quizzes</h2>
-                    <div className='quizList'>
+                    <div className='createQuizList'>
                         {otherSortedQuiz.map(quiz =>
                             <UserPanel key={quiz.id} quizID={quiz.id} title={quiz.name} views={quiz.count} published={quiz.published} author={this.getUser()} publishButton={this.props.unPublishQuiz}/>
                         )}
