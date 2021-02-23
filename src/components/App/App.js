@@ -277,7 +277,13 @@
                     path='/create'
                     render={routeProps => (
                       <CreateQuiz
-                        {...routeProps}/>
+                        {...routeProps}
+                        userList={this.state.users}
+                        quizList={this.state.quizzes}
+                        questionList={this.state.questions}
+                        publishQuiz ={this.publishQuiz}
+                        unPublishQuiz = {this.unPublishQuiz}
+                        />
                     )}
                     />
 
