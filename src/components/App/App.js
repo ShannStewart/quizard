@@ -7,6 +7,7 @@
   import Register from './Routes/Register/Register';
   import Missing from './Routes/Missing/Missing';
   import Test from './Routes/Test/Test';
+  import Results from './Routes/Results/Results'
 
   import dummyStore from '../../dummy-store';
   import { findUser, findQuiz, findQuestion, getQuizzesForUsers, getQuestionsForUsers, getQuestionsforQuizzes, countQuizzesForUser, countQuestionsForUser, countQuestionsForQuiz} from '../../helper';
@@ -24,6 +25,7 @@
       testTitle: '',
       test: [],
       current: 0,
+      total: 0,
       points: 0,
   };
 
@@ -161,12 +163,20 @@
         //console.log(chosenQuestions);
       }
 
+      var newQuestions = chosenQuestions
+      .map((a) => ({sort: Math.random(), value: a}))
+      .sort((a, b) => a.sort - b.sort)
+      .map((a) => a.value) 
+
+      var totalQuestions = newQuestions.length
+
      // console.log(chosenQuestions);
 
       this.setState({ testTitle : chosenQuiz.name });
-      this.setState({ test : chosenQuestions });
-      this.setState({ current : 0})
-      this.setState({ points : 0})
+      this.setState({ test : newQuestions });
+      this.setState({ current : 0});
+      this.setState({ points : 0});
+      this.setState({ total : totalQuestions });
 
 
       chosenQuiz.count= chosenQuiz.count + 1;
@@ -177,15 +187,35 @@
 
     }
 
+      
+    destroyQuiz = () => {
+      console.log('destroyQuiz ran');
+    }
+
+    finishQuiz = (x) =>{
+      console.log('finishQuiz ran');
+
+
+
+    }
+
     gainPoint = () =>{
       console.log('gainPoint ran');
       var point = this.state.points;
       point = point + 1;
       this.setState({ points : point});
+      
+      var newCurrent = this.state.current + 1;
+      this.setState({ current : newCurrent })          
+      
     }
-    
-    destroyQuiz = () => {
-      console.log('destroyQuiz ran');
+
+    noPoint = () =>{
+      console.log('noPoint ran');
+      
+      var newCurrent = this.state.current + 1;
+      this.setState({ current : newCurrent })   
+      
     }
     
     render(){ 
@@ -247,12 +277,21 @@
                     testTitle={this.state.testTitle}
                     testQuestions={this.state.test}
                     current={this.state.current}
+                    total={this.state.total}
                     points={this.state.points}
                     gainPoint={this.gainPoint}
+                    noPoint={this.noPoint}
                     questionList = {this.state.questions}
                     /> 
                 )}
                   />
+                <Route
+                  path='/results'
+                  render={routeProps => (
+                    <Results
+                    {...routeProps}/>
+                  )}
+                />
                <Route
                path='/missing'
                 render={routeProps => (

@@ -1,7 +1,7 @@
 import { Component } from 'react';
 import './Test.css'
 
-import Exam from './Exam/Exam'
+import { Link } from 'react-router-dom'
 
 class Test extends Component{
 
@@ -24,12 +24,19 @@ class Test extends Component{
         if (a == b){
             console.log('you got that one right!');
             this.props.gainPoint();
-            console.log('you got ' + this.props.points + ' right');
         }
-        
+
+        if (a !== b){
+            console.log('you got that wrong');
+            this.props.noPoint();
+        }
     }
 
-    
+    quizResults = () =>{
+        console.log('quizResults ran');
+
+        this.props.history.push('/results')
+    }
 
     render(){
 
@@ -39,6 +46,11 @@ class Test extends Component{
         
         quiz = this.props.testTitle;
         questions = this.props.testQuestions;
+        
+        var total = this.props.total
+        if (this.props.current >= total){
+            this.quizResults();
+        }
 
         if (this.checkQuiz(questions) == 0){
             this.props.history.push('/missing')
@@ -46,20 +58,10 @@ class Test extends Component{
 
       //  console.log(questions);
 
-        var newQuestions = questions
-            .map((a) => ({sort: Math.random(), value: a}))
-            .sort((a, b) => a.sort - b.sort)
-            .map((a) => a.value)
+        var answers = questions[this.props.current].choices;
+        var correct = questions[this.props.current].answer;
 
-       // console.log(newQuestions);
-
-        var total = newQuestions.length;
-        //console.log(total);
-
-        var answers = newQuestions[this.props.current].choices;
-        var correct = newQuestions[this.props.current].answer;
-
-        answers = answers.concat(newQuestions[this.props.current].answer);
+        answers = answers.concat(questions[this.props.current].answer);
         answers = answers
             .map((a) => ({sort: Math.random(), value: a}))
             .sort((a, b) => a.sort - b.sort)
@@ -70,12 +72,13 @@ class Test extends Component{
 
         return(
             <div className='test'>
-                <h3>{newQuestions[this.props.current].question}</h3>
-                {answers.map((answer, index) => <Exam key={index} choice={answer} correct={correct} checkAnswer={this.checkAnswer}/>)}
-                <p>The correct answer is {this.props.correct}</p>
+                <h3>{questions[this.props.current].question}</h3>
+                {answers.map((answer, index) => <button key={index} onClick={() => this.checkAnswer(answer, correct)}>{answer}</button>)}
+                <p>The correct answer is {questions[this.props.current].answer}</p>
             </div>
         )
     }   
 }
 
 export default Test
+
