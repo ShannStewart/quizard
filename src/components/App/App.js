@@ -7,7 +7,8 @@
   import Register from './Routes/Register/Register';
   import Missing from './Routes/Missing/Missing';
   import Test from './Routes/Test/Test';
-  import Results from './Routes/Results/Results'
+  import Results from './Routes/Results/Results';
+  import CreateQuiz from './Routes/CreateQuiz/CreateQuiz';
 
   import dummyStore from '../../dummy-store';
   import { findUser, findQuiz, findQuestion, getQuizzesForUsers, getQuestionsForUsers, getQuestionsforQuizzes, countQuizzesForUser, countQuestionsForUser, countQuestionsForQuiz} from '../../helper';
@@ -288,6 +289,21 @@
                       )} 
                     />
                 }
+                  {TokenService.hasAuthToken()
+                  ? <Route
+                    path='/create'
+                    render={routeProps => (
+                      <CreateQuiz
+                        {...routeProps}/>
+                    )}
+                    />
+                  : <Route
+                  render={routeProps => (
+                    <Missing
+                    {...routeProps}/>
+                    )}
+                    />
+                  }
                <Route
                path='/missing'
                 render={routeProps => (

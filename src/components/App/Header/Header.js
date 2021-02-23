@@ -29,7 +29,7 @@ export class HeaderIn extends Component{
   render(){
     return(
       <div className='headerBar'>
-             <p>My Profile</p>
+             <p>New Quiz</p>
                   <Log/>
       </div>
     )

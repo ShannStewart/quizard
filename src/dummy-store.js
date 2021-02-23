@@ -55,50 +55,58 @@ export default {
             "id": "Y100",
             "question": "What is Captain America's alter ego",
             "answer": "Steve Rogers",
-            "choices": ["Tony Stark", "Clint Barton"]
+            "choices": ["Tony Stark", "Clint Barton"],
+            "used": true
         },
         {
             "id": "Y101",
             "question": "What was the Beast original color?",
             "answer": "Gray",
-            "choices": ["Blue", "Yellow", "Red"]
+            "choices": ["Blue", "Yellow", "Red"],
+            "used": true
         },
         {
             "id": "Y102",
             "question": "Are Spiderman's webs in the comic currently-",
             "answer": "Mechanical",
-            "choices": ["Organic"]
+            "choices": ["Organic"],
+            "used": true
         },
         {
             "id": "Y103",
             "question": "1+1=",
             "answer": "2",
-            "choices": ["11", "22", "-1"]
+            "choices": ["11", "22", "-1"],
+            "used": true
         },
         {
             "id": "Y104",
             "question": "5x0=",
             "answer": "0",
-            "choices": ["50", "5"]
+            "choices": ["50", "5"],
+            "used": true
         },
         
         {
             "id": "Y105",
             "question": "What soda is the best?",
             "answer": "Dr Pepper",
-            "choices": ["Coke", "Sprite"]
+            "choices": ["Coke", "Sprite"],
+            "used": false
         },
         {
             "id": "Y106",
             "question": "What data strucutre follows FIFO rules?",
             "answer": "Queue",
-            "choices": ["Stack", "LinkedList"]
+            "choices": ["Stack", "LinkedList"],
+            "used": true
         },
         {
             "id": "Y107",
             "question": "What data strucutre follows LILO rules?",
             "answer": "Stack",
-            "choices": ["Queue", "Arrays"]
+            "choices": ["Queue", "Arrays"],
+            "used": true
         },
     ]
 
