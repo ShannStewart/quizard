@@ -32,8 +32,20 @@ class Test extends Component{
         }
     }
 
-    quizResults = () =>{
+    quizResults = (a, b) =>{
         console.log('quizResults ran');
+
+        console.log('current right answers: ' + this.props.points);
+
+        if (a == b){
+            console.log('you got that one right!');
+            this.props.gainPoint();
+        }
+
+        if (a !== b){
+            console.log('you got that wrong');
+            this.props.noPoint();
+        }
 
         this.props.history.push('/results')
     }
@@ -47,9 +59,11 @@ class Test extends Component{
         quiz = this.props.testTitle;
         questions = this.props.testQuestions;
         
+        var results = false;
+
         var total = this.props.total
-        if (this.props.current >= total){
-            this.quizResults();
+        if (this.props.current == total -1){
+            results = true;
         }
 
         if (this.checkQuiz(questions) == 0){
@@ -72,9 +86,14 @@ class Test extends Component{
 
         return(
             <div className='test'>
-                <h3>{questions[this.props.current].question}</h3>
+                {(results == true)
+                ?<div><h3>{questions[this.props.current].question}</h3>
+                {answers.map((answer, index) => <button key={index} onClick={() => this.quizResults(answer, correct)}>{answer}</button>)}
+                <p>The correct answer is {questions[this.props.current].answer}</p></div>
+
+                :<div><h3>{questions[this.props.current].question}</h3>
                 {answers.map((answer, index) => <button key={index} onClick={() => this.checkAnswer(answer, correct)}>{answer}</button>)}
-                <p>The correct answer is {questions[this.props.current].answer}</p>
+                <p>The correct answer is {questions[this.props.current].answer}</p></div>}
             </div>
         )
     }   
