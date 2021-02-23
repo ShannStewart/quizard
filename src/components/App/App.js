@@ -23,6 +23,8 @@
       questionID: 0,
       testTitle: '',
       test: [],
+      current: 0,
+      points: 0,
   };
 
   componentDidMount() {
@@ -163,6 +165,9 @@
 
       this.setState({ testTitle : chosenQuiz.name });
       this.setState({ test : chosenQuestions });
+      this.setState({ current : 0})
+      this.setState({ points : 0})
+
 
       chosenQuiz.count= chosenQuiz.count + 1;
       const list = this.state.quizzes;
@@ -170,6 +175,13 @@
       newList = newList.concat(chosenQuiz);
       this.setState({ quizzes : newList });
 
+    }
+
+    gainPoint = () =>{
+      console.log('gainPoint ran');
+      var point = this.state.points;
+      point = point + 1;
+      this.setState({ points : point});
     }
     
     destroyQuiz = () => {
@@ -234,6 +246,10 @@
                     {...routeProps}
                     testTitle={this.state.testTitle}
                     testQuestions={this.state.test}
+                    current={this.state.current}
+                    points={this.state.points}
+                    gainPoint={this.gainPoint}
+                    questionList = {this.state.questions}
                     /> 
                 )}
                   />
