@@ -77,8 +77,8 @@ deleteQuiz = (id) =>{
 
       var userToken = TokenService.getAuthToken();
 
-      var quizzer = findUser(this.state.users, userToken);
-          // get user
+       // get user
+      var quizzer = findUser(this.state.users, userToken); 
         var userQuestions = quizzer.questions;
         var newUserQuestions = userQuestions.concat(b)
 
@@ -111,9 +111,38 @@ deleteQuiz = (id) =>{
   //    console.log('quiz ' + a);
   //    console.log('question ' + b);
 
-      var userToken = TokenService.getAuthToken();
+      //get user
+        var userToken = TokenService.getAuthToken();
+        var quizzer = findUser(this.state.users, userToken); 
 
-      var giftedUser = findUser();
+        //remove question from user
+        var userQuestions = quizzer.questions;
+        var newUserQuestions = userQuestions.filter(question => question !==b)
+        quizzer.questions = newUserQuestions;
+
+        //replace user
+            var userList = this.state.users;
+                  var newUserList = userList.filter(user => user.id !== userToken)
+                  newUserList = newUserList.concat(quizzer);
+
+        //get quiz
+                var quiz = findQuiz(this.state.quizzes, a)
+        //add question to quiz
+          var quizQuestions = quiz.questions
+          var newQuizQuestions = quizQuestions.concat(b)
+
+          quiz.questions = newQuizQuestions;
+
+        //replace quiz
+          var quizList = this.state.quizzes;
+                  var newQuizList= quizList.filter(quiz => quiz.id !== a)
+                  newQuizList = newQuizList.concat(quiz);
+
+           // console.log(newUserList);
+          //     console.log(newQuizList);
+          this.setState({ users : newUserList, quizzes : newQuizList });
+
+	
     }
 
     userSubmit = (u, p) => {
@@ -449,7 +478,7 @@ deleteQuiz = (id) =>{
                 render={routeProps => {
                   const {quizId} = routeProps.match.params;
                   const quiz = findQuiz(this.state.quizzes, quizId);
-                  console.log(quiz);
+                  //console.log(quiz);
                   return <EditQuiz 
                   {...routeProps} 
                   quiz={quiz}

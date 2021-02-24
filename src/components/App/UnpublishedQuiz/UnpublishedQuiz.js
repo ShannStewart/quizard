@@ -76,7 +76,7 @@ class PublishedQuiz extends Component{
                 <h2 className='sectionTitle'>Quizzes In Progress</h2>
                 <div className='quizList'>
                     {sortedQuiz.map((quiz, index) =>
-                        <Route key={index} render={routeProps => ( <UserPanel {...routeProps} key={quiz.id} quizID={quiz.id} title={quiz.name} views={quiz.count} published={quiz.published} author={this.getUser()} publishButton={this.props.publishQuiz} deleteQuiz={this.props.deleteQuiz}/> )}/>
+                        <Route key={index} render={routeProps => ( <UserPanel {...routeProps} key={quiz.id} quizID={quiz.id} title={quiz.name} views={quiz.count} published={quiz.published} quizList={this.props.quizList} author={this.getUser()} publishButton={this.props.publishQuiz} deleteQuiz={this.props.deleteQuiz}/> )}/>
                     )}
                 </div>
             </div>

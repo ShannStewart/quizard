@@ -1,11 +1,23 @@
 import { React, Component } from 'react';
 
+import { findQuiz } from '../../../helper';
+
 class UserPanel extends Component{
 
     handlePublish = (id) => {
        // console.log('handlePublish ran ' + id);
 
-        this.props.publishButton(id);
+       var questionRequirement = findQuiz(this.props.quizList, id);
+        var questionNumber = [] 
+        questionNumber = questionRequirement.questions;
+       
+        if (questionNumber.length > 0){
+            this.props.publishButton(id);
+        }
+        else{
+            console.log('A quiz needs at least one question before you can publish it')
+        }
+
     }
 
     handleDelete = (id) =>{

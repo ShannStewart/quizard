@@ -37,7 +37,7 @@ class EditQuiz extends Component{
     }
 
     getQuizQuestions = (id) => {
-        console.log('getQuizQuestions ran ' + id);
+      //  console.log('getQuizQuestions ran ' + id);
 
         var quiz = findQuiz(this.props.quizList, id);
 
