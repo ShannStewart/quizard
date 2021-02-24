@@ -8,6 +8,13 @@ class UserPanel extends Component{
         this.props.publishButton(id);
     }
 
+    handleDelete = (id) =>{
+        console.log('quiz handleDelete ran ' + id)
+
+        this.props.deleteQuiz(id);
+        
+    }
+
     render(){
 
         const quizID = this.props.quizID;
@@ -21,6 +28,11 @@ class UserPanel extends Component{
                         {!this.props.published 
                          ?<button onClick={() => this.props.history.push(`/create/quiz/${this.props.quizID}`)}>Edit</button>
                          :<div></div>}
+                        </div>
+                        <div>
+                            {!this.props.published 
+                            ?<button onClick={() => this.handleDelete(this.props.quizID)}>Delete</button>
+                            :<div></div>}
                         </div>
                         <div>
                             {this.props.published 

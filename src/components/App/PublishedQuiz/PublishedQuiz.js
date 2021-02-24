@@ -15,13 +15,10 @@ class PublishedQuiz extends Component{
         //console.log('userKey: ' + userToken);
 
         var quizzer = findUser(this.props.userList, userToken);
-        //console.log(quizzer);
+        console.log(quizzer);
 
         var quizzerQuiz = Array.from(quizzer.test);
         //console.log(quizzerQuiz);
-
-        var quizzerUser = quizzer.user_name;
-        //console.log(quizzerUser);
 
         return quizzerQuiz
     }
@@ -73,8 +70,8 @@ class PublishedQuiz extends Component{
             <div className='published'>
                 <h2 className='sectionTitle'>Your Quizzes</h2>
                 <div className='quizList'>
-                    {sortedQuiz.map(quiz =>
-                        <UserPanel key={quiz.id} quizID={quiz.id} title={quiz.name} views={quiz.count} published={quiz.published} author={this.getUser()} publishButton={this.props.unPublishQuiz}/>
+                    {sortedQuiz.map((quiz, index) =>
+                        <UserPanel key={index} quizID={quiz.id} title={quiz.name} views={quiz.count} published={quiz.published} author={this.getUser()} publishButton={this.props.unPublishQuiz} deleteQuiz={this.props.deleteQuiz}/>
                     )}
                 </div>
             </div>

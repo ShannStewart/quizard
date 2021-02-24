@@ -41,6 +41,35 @@
     setTimeout(() => this.setState(dummyStore), 600);
 }
 
+deleteQuiz = (id) =>{
+  console.log('deleteQuiz ran ' + id);
+
+  var quizList = this.state.quizzes;
+  console.log(quizList);
+  var newList = quizList.filter(quiz => quiz.id !== id);
+  console.log(newList);
+
+  var userToken = TokenService.getAuthToken();
+
+  var quizzer = findUser(this.state.users, userToken);
+
+  var userQuiz = quizzer.test;
+  var newUserQuiz = userQuiz.filter(test => test !== id);
+
+  quizzer.test = newUserQuiz;
+
+  var userList = this.state.users;
+
+  var newUserList = userList.filter(user => user.id !== userToken)
+  newUserList = newUserList.concat(quizzer);
+
+  this.setState({ quizzes : newList, users: newUserList }, () => {
+    console.log(this.state.quizzes)
+  }  
+  );
+  
+}
+
     giftUserQuestion = (a) =>{
       console.log('questionGiftUser ran');
 
@@ -112,7 +141,7 @@
     }
 
     quizSubmit = (x) => {
-      console.log('quizSubmit ran');
+     // console.log('quizSubmit ran');
 
       var date = new Date();
 
@@ -145,14 +174,14 @@
     }
 
     deleteQuestion = (id) =>{
-      console.log('deleteQuestion ran ' + id);
+     // console.log('deleteQuestion ran ' + id);
 
       var questionList = this.state.questions;
-      console.log(questionList);
+    //  console.log(questionList);
       var newList = questionList.filter(question => question.id !== id);
-      console.log(newList);
+    //  console.log(newList);
 
-        var userToken = TokenService.getAuthToken();
+      var userToken = TokenService.getAuthToken();
   
       var quizzer = findUser(this.state.users, userToken);
 
@@ -298,6 +327,7 @@
                     publishQuiz ={this.publishQuiz}
                     unPublishQuiz = {this.unPublishQuiz}
                     startQuiz = {this.startQuiz}
+                    deleteQuiz={this.deleteQuiz}
                 />
                   )}
                 />
@@ -355,6 +385,7 @@
                         publishQuiz ={this.publishQuiz}
                         unPublishQuiz = {this.unPublishQuiz}
                         deleteQuestion = {this.deleteQuestion}
+                        deleteQuiz={this.deleteQuiz}
                         />
                     )}
                     />
@@ -390,6 +421,7 @@
                 render={routeProps => {
                   const {quizId} = routeProps.match.params;
                   const quiz = findQuiz(this.state.quizzes, quizId);
+                  console.log(quiz);
                   return <EditQuiz 
                   {...routeProps} 
                   quiz={quiz}

@@ -36,6 +36,8 @@ class EditQuiz extends Component{
         return newQuestionList;
     }
 
+  
+
     render(){
 
         var yourQuestions = this.getAllQuestions();

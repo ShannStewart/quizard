@@ -130,7 +130,7 @@ class CreateQuiz extends Component{
         var yourQuestions = this.getAllQuestions();
         
 
-        console.log(yourQuestions);
+        //console.log(yourQuestions);
 
         return(
             <div className='createQuiz'>
@@ -138,16 +138,16 @@ class CreateQuiz extends Component{
                     <div className='unpublished'>
                         <h2 className='sectionTitle'>Quizzes In Progress</h2>
                         <div className='createQuizList'>
-                        {sortedQuiz.map(quiz =>
-                              <Route render={routeProps => ( <UserPanel {...routeProps} key={quiz.id} quizID={quiz.id} title={quiz.name} views={quiz.count} published={quiz.published} author={this.getUser()} publishButton={this.props.publishQuiz}/> )}/>
+                        {sortedQuiz.map((quiz, index) =>
+                              <Route key={index} render={routeProps => ( <UserPanel {...routeProps} key={quiz.id} quizID={quiz.id} title={quiz.name} views={quiz.count} published={quiz.published} author={this.getUser()} publishButton={this.props.publishQuiz} deleteQuiz={this.props.deleteQuiz}/> )}/>
                         )}
                     </div>
                 </div>
                 <div className='published'>
                     <h2 className='sectionTitle'>Your Quizzes</h2>
                     <div className='createQuizList'>
-                        {otherSortedQuiz.map(quiz =>
-                              <Route render={routeProps => ( <UserPanel {...routeProps} key={quiz.id} quizID={quiz.id} title={quiz.name} views={quiz.count} published={quiz.published} author={this.getUser()} publishButton={this.props.publishQuiz}/> )}/>
+                        {otherSortedQuiz.map((quiz, index) =>
+                              <Route key={index} render={routeProps => ( <UserPanel {...routeProps} key={quiz.id} quizID={quiz.id} title={quiz.name} views={quiz.count} published={quiz.published} author={this.getUser()} publishButton={this.props.publishQuiz} deleteQuiz={this.props.deleteQuiz}/> )}/>
                         )}
                     </div>
                 </div>
