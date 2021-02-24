@@ -1,5 +1,7 @@
 import {React, Component} from 'react';
 import './UnpublishedQuiz.css'
+import { Redirect, Route, Switch } from 'react-router-dom';
+
 
 import TokenService from '../../../services/token-service';
 import { findUser, findQuiz, } from '../../../helper';
@@ -74,7 +76,7 @@ class PublishedQuiz extends Component{
                 <h2 className='sectionTitle'>Quizzes In Progress</h2>
                 <div className='quizList'>
                     {sortedQuiz.map(quiz =>
-                        <UserPanel key={quiz.id} quizID={quiz.id} title={quiz.name} views={quiz.count} published={quiz.published} author={this.getUser()} publishButton={this.props.publishQuiz}/>
+                        <Route render={routeProps => ( <UserPanel {...routeProps} key={quiz.id} quizID={quiz.id} title={quiz.name} views={quiz.count} published={quiz.published} author={this.getUser()} publishButton={this.props.publishQuiz}/> )}/>
                     )}
                 </div>
             </div>

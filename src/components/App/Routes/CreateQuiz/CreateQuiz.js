@@ -139,7 +139,7 @@ class CreateQuiz extends Component{
                         <h2 className='sectionTitle'>Quizzes In Progress</h2>
                         <div className='createQuizList'>
                         {sortedQuiz.map(quiz =>
-                            <UserPanel key={quiz.id} quizID={quiz.id} title={quiz.name} views={quiz.count} published={quiz.published} author={this.getUser()} publishButton={this.props.publishQuiz}/>
+                              <Route render={routeProps => ( <UserPanel {...routeProps} key={quiz.id} quizID={quiz.id} title={quiz.name} views={quiz.count} published={quiz.published} author={this.getUser()} publishButton={this.props.publishQuiz}/> )}/>
                         )}
                     </div>
                 </div>
@@ -147,7 +147,7 @@ class CreateQuiz extends Component{
                     <h2 className='sectionTitle'>Your Quizzes</h2>
                     <div className='createQuizList'>
                         {otherSortedQuiz.map(quiz =>
-                            <UserPanel key={quiz.id} quizID={quiz.id} title={quiz.name} views={quiz.count} published={quiz.published} author={this.getUser()} publishButton={this.props.unPublishQuiz}/>
+                              <Route render={routeProps => ( <UserPanel {...routeProps} key={quiz.id} quizID={quiz.id} title={quiz.name} views={quiz.count} published={quiz.published} author={this.getUser()} publishButton={this.props.publishQuiz}/> )}/>
                         )}
                     </div>
                 </div>

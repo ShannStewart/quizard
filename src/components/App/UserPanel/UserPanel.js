@@ -19,7 +19,7 @@ class UserPanel extends Component{
                     <div><h4>By {this.props.author}</h4><h4>Taken: {this.props.views}</h4></div>
                     <div>
                         {!this.props.published 
-                         ?<button>Edit</button>
+                         ?<button onClick={() => this.props.history.push(`/create/quiz/${this.props.quizID}`)}>Edit</button>
                          :<div></div>}
                         </div>
                         <div>
