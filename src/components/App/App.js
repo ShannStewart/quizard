@@ -41,16 +41,20 @@
     setTimeout(() => this.setState(dummyStore), 600);
 }
 
-    questionGiftUser = (a) =>{
+    giftUserQuestion = (a) =>{
       console.log('questionGiftUser ran');
+
+      var userToken = TokenService.getAuthToken();
 
       var giftedUser = findUser();
 
 
     }
 
-    giftQuizUser = (b) => {
+    giftQuizQuestion = (b) => {
       console.log('quizGiftUser ran');
+
+      var userToken = TokenService.getAuthToken();
 
       var giftedUser = findUser();
     }
@@ -386,7 +390,13 @@
                 render={routeProps => {
                   const {quizId} = routeProps.match.params;
                   const quiz = findQuiz(this.state.quizzes, quizId);
-                  return <EditQuiz {...routeProps} quiz={quiz}/>
+                  return <EditQuiz 
+                  {...routeProps} 
+                  quiz={quiz}
+                  userList={this.state.users}
+                  quizList={this.state.quizzes}
+                  questionList={this.state.questions}
+                  />
                 }}
                 />
                <Route

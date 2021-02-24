@@ -1,0 +1,9 @@
+.editQuiz main{
+    display: flex;
+    flex-direction: column;
+}
+
+.questionList{
+    display: flex;
+    flex-direction: row;
+}
