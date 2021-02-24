@@ -70,7 +70,7 @@ class PublishedQuiz extends Component{
             <div className='published'>
                 <h2 className='sectionTitle'>Your Quizzes</h2>
                 <div className='quizList'>
-                    {sortedQuiz.map((quiz, index) =>
+                    {sortedQuiz.slice(0,5).map((quiz, index) =>
                         <UserPanel key={index} quizID={quiz.id} title={quiz.name} views={quiz.count} published={quiz.published} quizList={this.props.quizList} author={this.getUser()} publishButton={this.props.unPublishQuiz} deleteQuiz={this.props.deleteQuiz}/>
                     )}
                 </div>

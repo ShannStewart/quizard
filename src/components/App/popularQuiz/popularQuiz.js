@@ -54,13 +54,14 @@ class PopularQuiz extends Component{
 
             const sortedQuiz = quizList.sort((a,b) => b.count - a.count)
 
+
             //console.log('sortedQuiz: ' + JSON.stringify(sortedQuiz));
 
         return(
              <div className='popularQuizzes'>
                 <h2 className='sectionTitle'>Popular Quizzes</h2>
                 <div className='quizList'>
-                    {sortedQuiz.map(quiz =>
+                    {sortedQuiz.slice(0,5).map(quiz =>
                         <QuizPanel key={quiz.id} quizID={quiz.id} title={quiz.name} views={quiz.count} author={this.getUserList(quiz.id)} takeQuiz={this.props.takeQuiz}/>
                     )}
                 </div>
