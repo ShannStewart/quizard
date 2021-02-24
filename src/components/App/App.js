@@ -45,9 +45,9 @@ deleteQuiz = (id) =>{
   console.log('deleteQuiz ran ' + id);
 
   var quizList = this.state.quizzes;
-  console.log(quizList);
+//console.log(quizList);
   var newList = quizList.filter(quiz => quiz.id !== id);
-  console.log(newList);
+  //console.log(newList);
 
   var userToken = TokenService.getAuthToken();
 
@@ -58,30 +58,58 @@ deleteQuiz = (id) =>{
 
   quizzer.test = newUserQuiz;
 
-  var userList = this.state.users;
+    var userList = this.state.users;
 
-  var newUserList = userList.filter(user => user.id !== userToken)
-  newUserList = newUserList.concat(quizzer);
+    var newUserList = userList.filter(user => user.id !== userToken)
+    newUserList = newUserList.concat(quizzer);
 
   this.setState({ quizzes : newList, users: newUserList }, () => {
-    console.log(this.state.quizzes)
+  //  console.log(this.state.quizzes)
   }  
   );
   
 }
 
-    giftUserQuestion = (a) =>{
+    giftUserQuestion = (a,b) =>{
       console.log('questionGiftUser ran');
+      console.log('quiz ' + a);
+      console.log('question ' + b);
 
       var userToken = TokenService.getAuthToken();
 
-      var giftedUser = findUser();
+      var quizzer = findUser(this.state.users, userToken);
+          // get user
+        var userQuestions = quizzer.questions;
+        var newUserQuestions = userQuestions.concat(b)
 
+        quizzer.questions = newUserQuestions;
 
+        //replace user
+        var userList = this.state.users;
+          var newUserList = userList.filter(user => user.id !== userToken)
+          newUserList = newUserList.concat(quizzer);
+          //get quiz
+        var quiz = findQuiz(this.state.quizzes, a)
+          //remove question from quiz
+        var quizQuestions = quiz.questions
+        var newQuizQuestions = quizQuestions.filter(question => question !== b)
+
+        quiz.questions = newQuizQuestions
+
+        var quizList = this.state.quizzes;
+          var newQuizList= quizList.filter(quiz => quiz.id !== a)
+          newQuizList = newQuizList.concat(quiz);
+
+      //  console.log(newUserList);
+       // console.log(newQuizList);
+
+        this.setState({ users : newUserList, quizzes : newQuizList });
     }
 
-    giftQuizQuestion = (b) => {
-      console.log('quizGiftUser ran');
+    giftQuizQuestion = (a,b) => {
+  //    console.log('quizGiftUser ran');
+  //    console.log('quiz ' + a);
+  //    console.log('question ' + b);
 
       var userToken = TokenService.getAuthToken();
 
@@ -428,6 +456,8 @@ deleteQuiz = (id) =>{
                   userList={this.state.users}
                   quizList={this.state.quizzes}
                   questionList={this.state.questions}
+                  giftUserQuestion={this.giftUserQuestion}
+                  giftQuizQuestion={this.giftQuizQuestion}
                   />
                 }}
                 />

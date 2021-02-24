@@ -2,12 +2,16 @@ import { React, Component } from 'react'
 
 export default class QuestionToggle extends Component {
 
-    handleRemove = () =>{
-        console.log('handleRemove ran')
+    handleRemove = (a,b) =>{
+        console.log('handleRemove ran ' + a + ' ' + b);
+
+        this.props.giftUserQuestion(a,b);
     }
 
-    handleAdd = () =>{
-        console.log('handleAdd ran')
+    handleAdd = (a,b) =>{
+        console.log('handleAdd ran ' + a + ' ' + b);
+
+        this.props.giftQuizQuestion(a,b);
     }
 
 
@@ -17,8 +21,8 @@ export default class QuestionToggle extends Component {
             <h4>{this.props.question}</h4>
             <p>Answer:{this.props.answer}</p>
             {(this.props.in == 0)
-             ?<button onClick={()=>this.handleRemove()}>Remove</button>
-             :<button onClick={()=>this.handleAdd()}>Add</button>}
+             ?<button onClick={()=>this.handleRemove(this.props.quizID, this.props.id)}>Remove</button>
+             :<button onClick={()=>this.handleAdd(this.props.quizID, this.props.id)}>Add</button>}
          </div>
         )
     }
