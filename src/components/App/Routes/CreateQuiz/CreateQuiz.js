@@ -51,7 +51,7 @@ class CreateQuiz extends Component{
             newQuestionList = newQuestionList.concat(findQuestion(this.props.questionList, quizzerQuestion[i]));
         }
 
-        console.log(newQuestionList);
+     //   console.log(newQuestionList);
 
         return newQuestionList;
     }
@@ -127,9 +127,7 @@ class CreateQuiz extends Component{
 
         const otherSortedQuiz = publishedList.sort((a,b) => b.modified - a.modified)
         
-        var yourQuestions = []
-        
-        yourQuestions = this.getAllQuestions();
+        var yourQuestions = this.getAllQuestions();
         
 
         console.log(yourQuestions);

@@ -80,7 +80,7 @@
     }
 
     questionSubmit = (q, t, pi) => {
-      console.log('questionSubmit ran');
+     // console.log('questionSubmit ran');
 
       var newID = "newQuestion" + this.state.quizID;
 
@@ -90,11 +90,20 @@
       var newQuestion = {"id": newID, "question": q, "answer": t, "choices": choices };
 
       var newQuestionID = this.state.questionID + 1;
-      this.setState({questionID: newQuestionID});
 
-      
       var newQuestionList = this.state.questions.concat(newQuestion);
-      this.setState({ questions: newQuestionList });
+
+      var userToken = TokenService.getAuthToken();
+          var quizzer = findUser(this.state.users, userToken);
+         quizzer.questions = quizzer.questions.concat(newID);
+    
+        var list = this.state.users;
+    
+         var newList = list.filter(user => user.id !== userToken)
+         newList = newList.concat(quizzer);
+
+
+      this.setState({ questionID: newQuestionID, questions: newQuestionList, users: newList });
 
     }
 

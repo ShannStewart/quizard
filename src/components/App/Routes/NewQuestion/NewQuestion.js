@@ -9,7 +9,7 @@ class NewQuestion extends Component{
 
     handleSubmit = ev => {
         ev.preventDefault()
-        console.log('newQuestion handlesubmit ran');
+     //   console.log('newQuestion handlesubmit ran');
     
         var rightAnswer = ev.target.answer.value;
         var wrongChoices = [];
@@ -50,7 +50,9 @@ class NewQuestion extends Component{
               return console.log("no wrong answer"); 
           }
 
-          this.props.addNewQuestion(rightAnswer);
+          console.log(currentQuestion + rightAnswer + wrongChoices);
+
+          this.props.addNewQuestion(currentQuestion, rightAnswer, wrongChoices);
 
           this.props.history.goBack();
     
