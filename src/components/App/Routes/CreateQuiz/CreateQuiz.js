@@ -47,7 +47,7 @@ class CreateQuiz extends Component{
 
 
     quizUnpublished = () =>{
-         //console.log('quizDetails ran');
+         //console.log('quizUnpublished ran');
 
          var userQuiz = this.getAllQuizzes()
          //console.log(userQuiz);
@@ -67,7 +67,7 @@ class CreateQuiz extends Component{
          return newQuizList
     }
     quizPublished = () =>{
-          //console.log('quizDetails ran');
+          //console.log('quizPublished ran');
 
           var userQuiz = this.getAllQuizzes()
           //console.log(userQuiz);
@@ -128,7 +128,7 @@ class CreateQuiz extends Component{
                     <h2 className='sectionTitle'>Your Quizzes</h2>
                     <div className='createQuizList'>
                         {otherSortedQuiz.map((quiz, index) =>
-                              <Route key={index} render={routeProps => ( <UserPanel {...routeProps} key={quiz.id} quizID={quiz.id} title={quiz.name} views={quiz.count} published={quiz.published} quizList={this.props.quizList} questionList={this.props.questionList} author={this.getUser()} publishButton={this.props.publishQuiz} deleteQuiz={this.props.deleteQuiz}/> )}/>
+                              <Route key={index} render={routeProps => ( <UserPanel {...routeProps} key={quiz.id} quizID={quiz.id} title={quiz.name} views={quiz.count} published={quiz.published} quizList={this.props.quizList} questionList={this.props.questionList} author={this.getUser()} publishButton={this.props.unPublishQuiz} deleteQuiz={this.props.deleteQuiz}/> )}/>
                         )}
                     </div>
                 </div>
