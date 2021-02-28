@@ -71,9 +71,20 @@ deleteQuiz = (id) =>{
 }
 
     takeQuizQuestion = (a,b) =>{
-      console.log('questionGiftUser ran');
-      console.log('quiz ' + a);
-      console.log('question ' + b);
+     // console.log('questionGiftUser ran');
+     // console.log('quiz ' + a);
+     // console.log('question ' + b);
+
+      var question = findQuestion(this.state.questions, b);
+
+      var questionList = this.state.questions;
+      var newQuestionList = questionList.filter(question => question.id !== b);
+      
+      question.test = null;
+      question.used = false;
+      newQuestionList = newQuestionList.concat(question);
+
+      this.setState({ questions : newQuestionList });
 
     }
 
@@ -82,6 +93,16 @@ deleteQuiz = (id) =>{
       console.log('quiz ' + a);
       console.log('question ' + b);  
 
+      var question = findQuestion(this.state.questions, b);
+
+      var questionList = this.state.questions;
+      var newQuestionList = questionList.filter(question => question.id !== b);
+
+      question.test = a;
+      question.used = true;
+      newQuestionList = newQuestionList.concat(question);
+
+      this.setState({ questions : newQuestionList });
 	
     }
 
@@ -395,7 +416,7 @@ deleteQuiz = (id) =>{
                   userList={this.state.users}
                   quizList={this.state.quizzes}
                   questionList={this.state.questions}
-                  giftUserQuestion={this.giftUserQuestion}
+                  giftUserQuestion={this.takeQuizQuestion}
                   giftQuizQuestion={this.giftQuizQuestion}
                   />
                 }}

@@ -51,7 +51,7 @@ class EditQuiz extends Component{
         //console.log(this.props.quiz);
 
         if (this.props.quiz == undefined){
-            quizQuestions = [];
+            this.props.history.goBack();
         }
         else{
             var quizQuestions = this.getQuizQuestions(this.props.quiz.id);
