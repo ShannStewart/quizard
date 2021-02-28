@@ -165,7 +165,7 @@ deleteQuiz = (id) =>{
 
     userReload = (data) =>{
 
-      var newUserItem = { "id": data.id, "user_name": data.name, "test": data.test, "questions": data.questions };
+      var newUserItem = { "id": data.id, "name": data.name, "test": data.test, "questions": data.questions };
       var newUserList = this.state.users.concat(newUserItem);
       this.setState({ users: newUserList });
 
