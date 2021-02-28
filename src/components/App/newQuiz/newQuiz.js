@@ -3,30 +3,16 @@ import React, { Component } from 'react';
 
 import QuizPanel from '../quizPanel/quizPanel'
 
-//import { findAuthor } from '../../../helper';
+import { findUser } from '../../../helper'
 
 class NewQuiz extends Component{
 
-    findAuthor = (id, q=[]) =>{
-       //console.log('id: ' + id);
-       //console.log('q: ' + q);
-       var i;
-       for(i=0; i < q.length; i++){
-           if (q[i] == id){
-               return true
-           }
-       }
-    }
-
     getUserList = (id) => {
-        //console.log('id: ' + id);
-        var i;
-        for (i = 0; i < this.props.userList.length; i++){
-                //console.log('truth: ' + this.findAuthor(id, this.props.userList[i].quizzes))
-                if (this.findAuthor(id, this.props.userList[i].test) == true){
-                    return this.props.userList[i].user_name;
-                }
-        }
+
+        var author = findUser(this.props.userList, id);
+
+        return author.name;
+        
     }
 
     getPublishedItems = (list) =>{
@@ -62,7 +48,7 @@ class NewQuiz extends Component{
                 <h2 className='sectionTitle'>New Quizzes</h2>
                 <div className='quizList'>
                     {sortedQuiz.slice(0,5).map(quiz =>
-                        <QuizPanel key={quiz.id} quizID={quiz.id} title={quiz.name} views={quiz.count} author={this.getUserList(quiz.id)} takeQuiz={this.props.takeQuiz}/>
+                        <QuizPanel key={quiz.id} quizID={quiz.id} title={quiz.name} views={quiz.count} author={this.getUserList(quiz.userId)} takeQuiz={this.props.takeQuiz}/>
                     )}
                 </div>
             </div>

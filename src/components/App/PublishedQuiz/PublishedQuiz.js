@@ -2,7 +2,7 @@ import {React, Component} from 'react';
 import './PublishedQuiz.css'
 
 import TokenService from '../../../services/token-service';
-import { findUser, findQuiz, } from '../../../helper';
+import { findUser, findQuiz, getQuizzesForUsers } from '../../../helper';
 
 import UserPanel from '../UserPanel/UserPanel'
 
@@ -12,21 +12,8 @@ class PublishedQuiz extends Component{
     getAllQuizzes = () =>{
         //console.log('getAllQuizzes ran');
         var userToken = TokenService.getAuthToken();
-        //console.log('userKey: ' + userToken);
 
-        var quizzer = findUser(this.props.userList, userToken);
-       // console.log(quizzer);
-
-       var quizzerQuiz = [];
-
-       if (quizzer == undefined){
-        quizzerQuiz = [];
-       }
-       else{
-        quizzerQuiz = Array.from(quizzer.test);
-       }
-      
-        //console.log(quizzerQuiz);
+      var quizzerQuiz = getQuizzesForUsers(this.props.quizList, userToken)
 
         return quizzerQuiz
     }
@@ -39,17 +26,13 @@ class PublishedQuiz extends Component{
 
         var newQuizList = [];
 
-        var foundQuiz;
         var publishCheck;
 
         var i;
         for (i = 0; i < userQuiz.length; i++){
-            //console.log(findQuiz(this.props.quizList, userQuiz[i]));
-            foundQuiz = findQuiz(this.props.quizList, userQuiz[i])
-            publishCheck = foundQuiz.published;
-            //console.log('published: ' + publishCheck);
+            publishCheck = userQuiz[i].published;
             if (publishCheck == true){
-                newQuizList = newQuizList.concat(findQuiz(this.props.quizList, userQuiz[i]));
+                newQuizList = newQuizList.concat(userQuiz[i]);
             }   
         }
         
@@ -62,7 +45,7 @@ class PublishedQuiz extends Component{
         
         var quizzer = findUser(this.props.userList, userToken);
 
-        var quizzerUser = quizzer.user_name;
+        var quizzerUser = quizzer.name;
 
         return quizzerUser
     }
@@ -79,7 +62,7 @@ class PublishedQuiz extends Component{
                 <h2 className='sectionTitle'>Your Quizzes</h2>
                 <div className='quizList'>
                     {sortedQuiz.slice(0,5).map((quiz, index) =>
-                        <UserPanel key={index} quizID={quiz.id} title={quiz.name} views={quiz.count} published={quiz.published} quizList={this.props.quizList} author={this.getUser()} publishButton={this.props.unPublishQuiz} deleteQuiz={this.props.deleteQuiz}/>
+                        <UserPanel key={index} quizID={quiz.id} title={quiz.name} views={quiz.count} published={quiz.published} quizList={this.props.quizList} questionList={this.props.questionList} author={this.getUser()} publishButton={this.props.unPublishQuiz} deleteQuiz={this.props.deleteQuiz}/>
                     )}
                 </div>
             </div>

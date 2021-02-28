@@ -8,10 +8,16 @@ quizzes.find(quiz => quiz.id === quizId)
 export const findQuestion = (questions=[], questionId) =>
 questions.find(question => question.id === questionId)
 
+export const getQuizzesForUsers = (quizzes=[], userId) => (
+  (!userId)
+  ? quizzes
+  : quizzes.filter(quiz => quiz.userId === userId)
+)
+
 export const getQuestionsForUsers = (questions=[], userId) => (
     (!userId)
       ? questions
-      : questions.filter(question => question.userId === userId)
+      : questions.filter(question => question.user === userId)
     )
 
 export const getQuestionsforQuizzes = (questions=[], quizId) => (
@@ -27,5 +33,5 @@ export const countQuestionsForUser = (questions=[], userId) =>
 questions.filter(question => question.userId === userId).length
 
 export const countQuestionsForQuiz = (questions=[], quizId) =>
-questions.filter(question => question.quizId === quizId).length
+questions.filter(question => question.test === quizId).length
 

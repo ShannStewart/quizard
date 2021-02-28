@@ -46,7 +46,7 @@ class Register extends Component{
 
           //console.log("existUser: " + this.props.existUser);
 
-         var userCheck = this.props.existUser.find(user => user.user_name == userName);
+         var userCheck = this.props.existUser.find(user => user.name == userName);
 
           //console.log("userCheck: " + JSON.stringify(userCheck));
 
