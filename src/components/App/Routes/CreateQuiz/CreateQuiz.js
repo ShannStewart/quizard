@@ -20,12 +20,14 @@ class CreateQuiz extends Component{
         var quizzer = findUser(this.props.userList, userToken);
         //console.log(quizzer);
 
-        var quizzerQuiz = Array.from(quizzer.test);
-        
-        //console.log(quizzerQuiz);
+        var quizzerQuiz = [];
 
-        var quizzerUser = quizzer.user_name;
-        //console.log(quizzerUser);
+        if (quizzer == undefined){
+         quizzerQuiz = [];
+        }
+        else{
+         quizzerQuiz = Array.from(quizzer.test);
+        }
 
         return quizzerQuiz
     }
@@ -38,7 +40,15 @@ class CreateQuiz extends Component{
         var quizzer = findUser(this.props.userList, userToken);
         //console.log(quizzer);
 
-        var quizzerQuestion = Array.from(quizzer.questions);
+        var quizzerQuestion = [];
+
+        if (quizzer == undefined){
+             quizzerQuestion = [];
+        }
+        else {
+            var quizzerQuestion = Array.from(quizzer.questions);
+
+        }
         
         var newQuestionList = [];
 
