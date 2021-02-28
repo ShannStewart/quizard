@@ -237,7 +237,7 @@ deleteQuiz = (id) =>{
     }
 
     startQuiz = (c) => {
-      //console.log('startQuiz ran' + c);
+      //console.log('startQuiz ran ' + c);
       var chosenQuiz= findQuiz(this.state.quizzes, c);
 
      // console.log(chosenQuiz.name);
@@ -248,13 +248,7 @@ deleteQuiz = (id) =>{
       this.setState({ points : 0});
       this.setState({ total : 0 });
 
-      var chosenQuestions = [];
-    
-      var i;
-      for (i=0; i < chosenQuiz.questions.length; i++){
-        chosenQuestions = chosenQuestions.concat(findQuestion(this.state.questions, chosenQuiz.questions[i]));
-        //console.log(chosenQuestions);
-      }
+      var chosenQuestions = getQuestionsforQuizzes(this.state.questions, c);
 
       var newQuestions = chosenQuestions
       .map((a) => ({sort: Math.random(), value: a}))
