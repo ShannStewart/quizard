@@ -11,24 +11,23 @@ import { findUser, findQuiz, findQuestion, getQuizzesForUsers, getQuestionsForUs
 class EditQuiz extends Component{
 
     getAllQuestions = () =>{
-        //console.log('getAllQuizzes ran');
         var userToken = TokenService.getAuthToken();
-        //console.log('userKey: ' + userToken);
 
-        var quizzer = findUser(this.props.userList, userToken);
-        //console.log(quizzer);
-
-        var quizzerQuestion = Array.from(quizzer.questions);
+        var quizzerQuestion = getQuestionsForUsers(this.props.questionList, userToken)
+       // console.log(this.props.questionList);
+       // console.log(quizzerQuestion);
         
         var newQuestionList = [];
 
-        var foundQuestion;
+        var usedCheck;
 
         var i;
         for (i = 0; i < quizzerQuestion.length; i++){
-         //   console.log(findQuestion(this.props.questionList, quizzerQuestion[i]));
-            foundQuestion = findQuestion(this.props.questionList, quizzerQuestion[i])
-            newQuestionList = newQuestionList.concat(findQuestion(this.props.questionList, quizzerQuestion[i]));
+          //  console.log(quizzerQuestion[i]);
+            usedCheck = quizzerQuestion[i].used;
+            if (usedCheck == false){
+                newQuestionList = newQuestionList.concat(quizzerQuestion[i]);
+            }   
         }
 
      //   console.log(newQuestionList);
@@ -37,30 +36,26 @@ class EditQuiz extends Component{
     }
 
     getQuizQuestions = (id) => {
-      //  console.log('getQuizQuestions ran ' + id);
+        //console.log('getQuizQuestions ran ' + id);
+        //console.log(this.props.questionList);
 
-        var quiz = findQuiz(this.props.quizList, id);
+        var quiz = getQuestionsforQuizzes(this.props.questionList, id);
 
-        var quizQuestion = Array.from(quiz.questions);
-
-        var newQuestionList = [];
-
-        var foundQuestion;
-
-        var i;
-        for (i = 0; i < quizQuestion.length; i++){
-         //   console.log(findQuestion(this.props.questionList, quizzerQuestion[i]));
-            foundQuestion = findQuestion(this.props.questionList, quizQuestion[i])
-            newQuestionList = newQuestionList.concat(findQuestion(this.props.questionList, quizQuestion[i]));
-        }
-        return newQuestionList;
+        return quiz;
     }
 
     render(){
 
         var yourQuestions = this.getAllQuestions();
 
-        var quizQuestions = this.getQuizQuestions(this.props.quiz.id);
+        //console.log(this.props.quiz);
+
+        if (this.props.quiz == undefined){
+            quizQuestions = [];
+        }
+        else{
+            var quizQuestions = this.getQuizQuestions(this.props.quiz.id);
+        }
 
         const inQuiz = 0;
         const outQuiz = 1;

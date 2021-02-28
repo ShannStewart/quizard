@@ -23,7 +23,7 @@ export const getQuestionsForUsers = (questions=[], userId) => (
 export const getQuestionsforQuizzes = (questions=[], quizId) => (
     (!quizId)
         ? questions
-        : questions.filter(question => question.quizId === quizId)
+        : questions.filter(question => question.test === quizId)
 )
 
 export const countQuizzesForUser = (quizzes=[], userId) =>
