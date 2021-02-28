@@ -20,13 +20,14 @@
   import { findUser, findQuiz, findQuestion, getQuizzesForUsers, getQuestionsForUsers, getQuestionsforQuizzes, countQuizzesForUser, countQuestionsForUser, countQuestionsForQuiz} from '../../helper';
 
   import TokenService from '../../services/token-service';
+  import config from '../../config';
 
   class App extends Component{
     state = {
       users: [],
       quizzes: [],
       questions: [],
-      userID: 0,
+      //userID: 0,
       quizID: 0,
       questionID: 0,
       testTitle: '',
@@ -38,7 +39,24 @@
 
   componentDidMount() {
     // fake date loading from API call
-    setTimeout(() => this.setState(dummyStore), 600);
+    //setTimeout(() => this.setState(dummyStore), 600);
+
+    Promise.all([
+      fetch(`${config.API_ENDPOINT}/auth`),
+    ])
+      .then(([userRes]) => {
+        if (!userRes.ok)
+          return userRes.json().then(e => Promise.reject(e))
+        return Promise.all([
+          userRes.json(),
+        ])
+      })
+      .then(([users]) => {
+        this.setState({ users })
+      })
+      .catch(error => {
+        console.error({ error })
+      })
 }
 
 deleteQuiz = (id) =>{
@@ -145,25 +163,35 @@ deleteQuiz = (id) =>{
 	
     }
 
+    userReload = (data) =>{
+
+      var newUserItem = { "id": data.id, "user_name": data.name, "test": data.test, "questions": data.questions };
+      var newUserList = this.state.users.concat(newUserItem);
+      this.setState({ users: newUserList });
+
+    }
+
     userSubmit = (u, p) => {
       //console.log('userSubmit ran');
-      //console.log('running userSubmit with: ' + u + ' and ' + p);
+ 
 
-      var newUser = {"id": "newUser" + this.state.userID, "user_name": u, "password": p, "quizzes": [], "questions": []};
+      var newUser = { "name": u, "password": p, "test": [], "questions": [] };
 
-      //console.log('new user: ' + newUser);
-
-      var newUserID = this.state.userID + 1;
-      this.setState({userID: newUserID});
-
-      //console.log('check1');
-
-      var newUserList = this.state.users.concat(newUser);
-      this.setState({ users: newUserList });
+      var postUser = {
+        method: 'POST',
+        headers: {
+          'content-type': 'application/json'
+        },
+        body: JSON.stringify(newUser)
+      }
 
       var ider = newUser.id;
 
       TokenService.saveAuthToken(ider);
+          
+      fetch(`${config.API_ENDPOINT}/auth`, postUser)  
+      .then(response => response.json())
+      .then(data => this.userReload(data))
 
       //console.log('check2');
 

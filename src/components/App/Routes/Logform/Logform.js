@@ -40,11 +40,11 @@ class Logform extends Component{
               return console.log("no name"); 
           }
 
-          const userCheck = this.props.existUser.find(user => user.user_name == userName);
+          const userCheck = this.props.existUser.find(user => user.name == userName);
           const passCheck = this.props.existUser.find(user => user.password == password);
 
           if (userCheck == null){
-            userMiss.classList.remove("hidden");
+            userWrong.classList.remove("hidden");
               return console.log("username is not in our database");
           }
 
@@ -54,7 +54,7 @@ class Logform extends Component{
           }
 
           if (passCheck == null){
-            userMiss.classList.remove("hidden");
+            passWrong.classList.remove("hidden");
               return console.log("password is wrong");
           }
 

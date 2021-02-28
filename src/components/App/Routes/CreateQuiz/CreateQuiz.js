@@ -20,13 +20,13 @@ class CreateQuiz extends Component{
         var quizzer = findUser(this.props.userList, userToken);
         //console.log(quizzer);
 
-        var quizzerQuiz = Array.from(quizzer.test);
+        if(quizzer == undefined){
+            quizzerQuiz = [];
+        }
+        else{
+         var quizzerQuiz = Array.from(quizzer.test);
+        }
         
-        //console.log(quizzerQuiz);
-
-        var quizzerUser = quizzer.user_name;
-        //console.log(quizzerUser);
-
         return quizzerQuiz
     }
 
@@ -35,10 +35,17 @@ class CreateQuiz extends Component{
         var userToken = TokenService.getAuthToken();
         //console.log('userKey: ' + userToken);
 
+        
+
         var quizzer = findUser(this.props.userList, userToken);
         //console.log(quizzer);
 
-        var quizzerQuestion = Array.from(quizzer.questions);
+        if(quizzer == undefined){
+            quizzerQuestion = [];
+        }
+        else{
+            var quizzerQuestion = Array.from(quizzer.questions);
+        }
         
         var newQuestionList = [];
 

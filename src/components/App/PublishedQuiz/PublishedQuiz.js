@@ -17,7 +17,12 @@ class PublishedQuiz extends Component{
         var quizzer = findUser(this.props.userList, userToken);
        // console.log(quizzer);
 
+       if(quizzer == undefined){
+           quizzerQuiz = [];
+       }
+       else{
         var quizzerQuiz = Array.from(quizzer.test);
+       }
         //console.log(quizzerQuiz);
 
         return quizzerQuiz
