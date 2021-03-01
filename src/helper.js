@@ -17,7 +17,7 @@ export const getQuizzesForUsers = (quizzes=[], userId) => (
 export const getQuestionsForUsers = (questions=[], userId) => (
     (!userId)
       ? questions
-      : questions.filter(question => question.user == userId)
+      : questions.filter(question => question.userid == userId)
     )
 
 export const getQuestionsforQuizzes = (questions=[], quizId) => (

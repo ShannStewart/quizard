@@ -43,20 +43,24 @@
 
     Promise.all([
       fetch(`${config.API_ENDPOINT}/auth`),
-      fetch(`${config.API_ENDPOINT}/quizzes`)
+      fetch(`${config.API_ENDPOINT}/quizzes`),
+      fetch(`${config.API_ENDPOINT}/questions`)
     ])
-      .then(([userRes, quizRes]) => {
+      .then(([userRes, quizRes, questionRes]) => {
         if (!userRes.ok)
           return userRes.json().then(e => Promise.reject(e))
-          if (!quizRes.ok)
+        if (!quizRes.ok)
           return quizRes.json().then(e => Promise.reject(e))
+        if (!questionRes.ok)
+          return questionRes.json().then(e => Promise.reject(e))
         return Promise.all([
           userRes.json(),
           quizRes.json(),
+          questionRes.json(),
         ])
       })
-      .then(([users, quizzes]) => {
-        this.setState({ users, quizzes })
+      .then(([users, quizzes, questions]) => {
+        this.setState({ users, quizzes, questions })
       })
       .catch(error => {
         console.error({ error })
@@ -155,23 +159,36 @@ deleteQuiz = (id) =>{
 
     }
 
+    questionReload = (data) => {
+      var newQuestionItem = { "id": data.id, "question": data.question, "answer": data.answer, "choices": data.choices, "test": data.test, "userid": data.userid, "used": data.used };
+
+      var newQuestionList = this.state.questions.concat(newQuestionItem);
+
+      this.setState({ questions: newQuestionList });
+
+    }
+
     questionSubmit = (q, t, pi) => {
      // console.log('questionSubmit ran');
 
-      var newID = "newQuestion" + this.state.quizID;
+     var userToken = TokenService.getAuthToken();
 
-      var choices = [];
+     var choices = [];
       choices = pi;
 
-      var userToken = TokenService.getAuthToken();
+     var newQuestion = { "question": q, "answer": t, "choices": choices, "test": null, "userid": userToken, "used": false };
 
-      var newQuestion = {"id": newID, "question": q, "answer": t, "choices": choices, "test": null, "user": userToken, "used": false };
-
-      var newQuestionID = this.state.questionID + 1;
-
-      var newQuestionList = this.state.questions.concat(newQuestion);
-
-      this.setState({ questionID: newQuestionID, questions: newQuestionList });
+     var postQuestion = {
+       method: 'POST',
+       headers: {
+         'content-type': 'application/json'
+       },
+       body: JSON.stringify(newQuestion)
+     }
+         
+     fetch(`${config.API_ENDPOINT}/questions`, postQuestion)  
+     .then(response => response.json())
+     .then(data => this.questionReload(data))
 
     }
 
@@ -207,18 +224,28 @@ deleteQuiz = (id) =>{
 
     }
 
-    deleteQuestion = (id) =>{
-     // console.log('deleteQuestion ran ' + id);
-
+    deleteQuestionReload = (id) =>{
       var questionList = this.state.questions;
-    //  console.log(questionList);
       var newList = questionList.filter(question => question.id !== id);
-    //  console.log(newList);
-
+    
       this.setState({ questions : newList }, () => {
-        console.log(this.state.questions)
-      }  
-      );
+        //  console.log(this.state.quizzes)
+        }  
+        );
+    }
+
+    deleteQuestion = (id) =>{
+
+      var deleteQuestion = {
+        method: 'DELETE',
+        headers: {
+          'content-type': 'application/json'
+        },
+        body: JSON.stringify(id)
+      }
+
+      fetch(`${config.API_ENDPOINT}/questions/${id}`, deleteQuestion)
+            .then(this.deleteQuestionReload(id))
       
     }
 
