@@ -20,14 +20,15 @@
   import { findUser, findQuiz, findQuestion, getQuizzesForUsers, getQuestionsForUsers, getQuestionsforQuizzes, countQuizzesForUser, countQuestionsForUser, countQuestionsForQuiz} from '../../helper';
 
   import TokenService from '../../services/token-service';
+  import config from '../../config';
 
   class App extends Component{
     state = {
       users: [],
       quizzes: [],
       questions: [],
-      userID: 0,
-      quizID: 0,
+     // userID: 0,
+     // quizID: 0,
       questionID: 0,
       testTitle: '',
       test: [],
@@ -38,36 +39,54 @@
 
   componentDidMount() {
     // fake date loading from API call
-    setTimeout(() => this.setState(dummyStore), 600);
+    //setTimeout(() => this.setState(dummyStore), 600);
+
+    Promise.all([
+      fetch(`${config.API_ENDPOINT}/auth`),
+      fetch(`${config.API_ENDPOINT}/quizzes`)
+    ])
+      .then(([userRes, quizRes]) => {
+        if (!userRes.ok)
+          return userRes.json().then(e => Promise.reject(e))
+          if (!quizRes.ok)
+          return quizRes.json().then(e => Promise.reject(e))
+        return Promise.all([
+          userRes.json(),
+          quizRes.json(),
+        ])
+      })
+      .then(([users, quizzes]) => {
+        this.setState({ users, quizzes })
+      })
+      .catch(error => {
+        console.error({ error })
+      })
+}
+
+deleteReload = (id) =>{
+  var quizList = this.state.quizzes;
+  var newList = quizList.filter(quiz => quiz.id !== id);
+
+  this.setState({ quizzes : newList }, () => {
+    //  console.log(this.state.quizzes)
+    }  
+    );
 }
 
 deleteQuiz = (id) =>{
   console.log('deleteQuiz ran ' + id);
 
-  var quizList = this.state.quizzes;
-//console.log(quizList);
-  var newList = quizList.filter(quiz => quiz.id !== id);
-  //console.log(newList);
+  var deleteQuiz = {
+    method: 'DELETE',
+    headers: {
+      'content-type': 'application/json'
+    },
+    body: JSON.stringify(id)
+  }
 
-  var userToken = TokenService.getAuthToken();
+  fetch(`${config.API_ENDPOINT}/quizzes/${id}`, deleteQuiz)
+        .then(this.deleteReload(id))
 
-  var quizzer = findUser(this.state.users, userToken);
-
-  var userQuiz = quizzer.test;
-  var newUserQuiz = userQuiz.filter(test => test !== id);
-
-  quizzer.test = newUserQuiz;
-
-    var userList = this.state.users;
-
-    var newUserList = userList.filter(user => user.id !== userToken)
-    newUserList = newUserList.concat(quizzer);
-
-  this.setState({ quizzes : newList, users: newUserList }, () => {
-  //  console.log(this.state.quizzes)
-  }  
-  );
-  
 }
 
     takeQuizQuestion = (a,b) =>{
@@ -106,27 +125,32 @@ deleteQuiz = (id) =>{
 	
     }
 
-    userSubmit = (u, p) => {
-      //console.log('userSubmit ran');
-      //console.log('running userSubmit with: ' + u + ' and ' + p);
+    userReload = (data) =>{
 
-      var newUser = {"id": "newUser" + this.state.userID, "name": u, "password": p };
-
-      //console.log('new user: ' + newUser);
-
-      var newUserID = this.state.userID + 1;
-      this.setState({userID: newUserID});
-
-      //console.log('check1');
-
-      var newUserList = this.state.users.concat(newUser);
+      var newUserItem = { "id": data.id, "name": data.name, "password": data.password };
+      var newUserList = this.state.users.concat(newUserItem);
       this.setState({ users: newUserList });
+
+    }
+
+    userSubmit = (u, p) => {
+      var newUser = { "name": u, "password": p };
+
+      var postUser = {
+        method: 'POST',
+        headers: {
+          'content-type': 'application/json'
+        },
+        body: JSON.stringify(newUser)
+      }
 
       var ider = newUser.id;
 
       TokenService.saveAuthToken(ider);
-
-      //console.log('check2');
+          
+      fetch(`${config.API_ENDPOINT}/auth`, postUser)  
+      .then(response => response.json())
+      .then(data => this.userReload(data))
 
     }
 
@@ -150,28 +174,36 @@ deleteQuiz = (id) =>{
 
     }
 
+    quizReload = (data) =>{
+
+      var newQuizItem = { "id": data.id, "name": data.name, "modified": data.modified, "count": data.count, "published": data.published, "userid": data.userid };
+      var newQuizList = this.state.quizzes.concat(newQuizItem);
+      this.setState({ quizzes: newQuizList });
+
+    }
+
     quizSubmit = (x) => {
      // console.log('quizSubmit ran');
 
       var date = new Date();
 
-      var newID = "newQuiz" + this.state.quizID;
-
       var userToken = TokenService.getAuthToken();
 
-      var newQuiz = {"id": newID, "name": x, "modified": date, "count": 0, "published": false, "userId": userToken };
+      var newQuiz = { "name": x, "modified": date, "count": 0, "published": false, "userid": userToken };
     //  console.log(newQuiz);
 
-      var newQuizID = this.state.quizID + 1;
-      
-      var newQuizList = this.state.quizzes.concat(newQuiz);
-      
-     // console.log(newQuizList);
+      var postQuiz = {
+        method: 'POST',
+        headers: {
+          'content-type': 'application/json'
+        },
+        body: JSON.stringify(newQuiz)
+      }
+          
+      fetch(`${config.API_ENDPOINT}/quizzes`, postQuiz)  
+      .then(response => response.json())
+      .then(data => this.quizReload(data))
 
-     this.setState({ quizID: newQuizID, quizzes : newQuizList }, () => {
-       //console.log(this.state.quizzes);
-     }
-     );
     }
 
     deleteQuestion = (id) =>{

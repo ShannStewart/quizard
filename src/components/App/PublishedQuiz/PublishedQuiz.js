@@ -12,8 +12,11 @@ class PublishedQuiz extends Component{
     getAllQuizzes = () =>{
         //console.log('getAllQuizzes ran');
         var userToken = TokenService.getAuthToken();
+      // console.log('userToken: ' + userToken);
 
       var quizzerQuiz = getQuizzesForUsers(this.props.quizList, userToken)
+      //console.log('this.props.quizlist: ' + JSON.stringify(this.props.quizList));
+     // console.log('quizzerQuiz: ' + JSON.stringify(quizzerQuiz));
 
         return quizzerQuiz
     }
@@ -22,7 +25,7 @@ class PublishedQuiz extends Component{
         //console.log('quizDetails ran');
 
         var userQuiz = this.getAllQuizzes()
-        //console.log(userQuiz);
+      //  console.log('userQuiz: ' + userQuiz);
 
         var newQuizList = [];
 
