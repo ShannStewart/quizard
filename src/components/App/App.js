@@ -224,7 +224,7 @@ deleteQuiz = (id) =>{
       var userToken = TokenService.getAuthToken();
 
       var newQuiz = { "name": x, "modified": date, "count": 0, "published": false, "userid": userToken };
-    //  console.log(newQuiz);
+      console.log(newQuiz);
 
       var postQuiz = {
         method: 'POST',
