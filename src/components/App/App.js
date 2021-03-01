@@ -265,7 +265,7 @@ deleteQuiz = (id) =>{
     rebuildQuiz.published = true;
     rebuildQuiz.modified = date;
 
-  console.log('rebuildQuiz: ' + JSON.stringify(rebuildQuiz));
+  //console.log('rebuildQuiz: ' + JSON.stringify(rebuildQuiz));
 
       var patchQuiz = {
         method: 'Quiz',
@@ -280,27 +280,22 @@ deleteQuiz = (id) =>{
 
     }
 
-    unPublishQuiz = (b) => {
-    //  console.log('unpublishedQuiz ran' + b);
-
-      var rebuildQuiz = findQuiz(this.state.quizzes, b);
-     // console.log(rebuildQuiz);
+    unPublishQuiz = (a) => {
+      var rebuildQuiz = findQuiz(this.state.quizzes, a);
 
       rebuildQuiz.published = false;
       rebuildQuiz.count= 0;
 
-    //  console.log(rebuildQuiz);
+      var patchQuiz = {
+        method: 'Quiz',
+        headers: {
+          'content-type': 'application/json'
+        },
+        body: JSON.stringify(rebuildQuiz)
+      }
 
-      const list = this.state.quizzes;
-   //   console.log(list);
-
-        var newList = list.filter(quiz => quiz.id !== b);
-     //   console.log(newList);
-        
-        newList = newList.concat(rebuildQuiz);
-      //  console.log(newList);
-
-        this.setState({ quizzes : newList });
+      fetch(`${config.API_ENDPOINT}/quizzes/${a}`, patchQuiz)
+      .then(this.publishReload(a, rebuildQuiz))
 
     }
 
