@@ -268,7 +268,7 @@ deleteQuiz = (id) =>{
   //console.log('rebuildQuiz: ' + JSON.stringify(rebuildQuiz));
 
       var patchQuiz = {
-        method: 'Quiz',
+        method: 'PATCH',
         headers: {
           'content-type': 'application/json'
         },
@@ -287,7 +287,7 @@ deleteQuiz = (id) =>{
       rebuildQuiz.count= 0;
 
       var patchQuiz = {
-        method: 'Quiz',
+        method: 'PATCH',
         headers: {
           'content-type': 'application/json'
         },
