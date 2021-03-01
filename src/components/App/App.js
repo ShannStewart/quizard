@@ -74,6 +74,7 @@ deleteReload = (id) =>{
 }
 
 deleteQuiz = (id) =>{
+  
   console.log('deleteQuiz ran ' + id);
 
   var deleteQuiz = {
