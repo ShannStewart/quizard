@@ -94,39 +94,55 @@ deleteQuiz = (id) =>{
 
 }
 
+  reloadTransfer = (b, question) => {
+    var questionList = this.state.questions;
+      var newQuestionList = questionList.filter(question => question.id !== b);
+      newQuestionList = newQuestionList.concat(question);
+
+      this.setState({ questions : newQuestionList });
+  }
+
     takeQuizQuestion = (a,b) =>{
      // console.log('questionGiftUser ran');
      // console.log('quiz ' + a);
      // console.log('question ' + b);
 
       var question = findQuestion(this.state.questions, b);
-
-      var questionList = this.state.questions;
-      var newQuestionList = questionList.filter(question => question.id !== b);
-      
       question.test = null;
       question.used = false;
-      newQuestionList = newQuestionList.concat(question);
 
-      this.setState({ questions : newQuestionList });
+      var patchQuestion = {
+        method: 'PATCH',
+        headers: {
+          'content-type': 'application/json'
+        },
+        body: JSON.stringify(question)
+      }
+
+      fetch(`${config.API_ENDPOINT}/questions/${b}`, patchQuestion)
+      .then(this.reloadTransfer(b, question))
 
     }
 
     giftQuizQuestion = (a,b) => {
-      console.log('quizGiftUser ran');
-      console.log('quiz ' + a);
-      console.log('question ' + b);  
+     // console.log('quizGiftUser ran');
+     // console.log('quiz ' + a);
+     // console.log('question ' + b);  
 
       var question = findQuestion(this.state.questions, b);
-
-      var questionList = this.state.questions;
-      var newQuestionList = questionList.filter(question => question.id !== b);
-
       question.test = a;
       question.used = true;
-      newQuestionList = newQuestionList.concat(question);
+      
+      var patchQuestion = {
+        method: 'PATCH',
+        headers: {
+          'content-type': 'application/json'
+        },
+        body: JSON.stringify(question)
+      }
 
-      this.setState({ questions : newQuestionList });
+      fetch(`${config.API_ENDPOINT}/questions/${b}`, patchQuestion)
+      .then(this.reloadTransfer(b, question))
 	
     }
 
