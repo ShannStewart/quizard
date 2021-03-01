@@ -9,9 +9,18 @@ class NewQuiz extends Component{
 
     getUserList = (id) => {
 
+        var userName = '';
+
         var author = findUser(this.props.userList, id);
 
-        return author.name;
+        if(author == undefined){
+            return userName;
+        }
+        else{
+            userName = author.name;
+            return userName;
+        }
+
         
     }
 
@@ -48,7 +57,7 @@ class NewQuiz extends Component{
                 <h2 className='sectionTitle'>New Quizzes</h2>
                 <div className='quizList'>
                     {sortedQuiz.slice(0,5).map(quiz =>
-                        <QuizPanel key={quiz.id} quizID={quiz.id} title={quiz.name} views={quiz.count} author={this.getUserList(quiz.userId)} takeQuiz={this.props.takeQuiz}/>
+                        <QuizPanel key={quiz.id} quizID={quiz.id} title={quiz.name} views={quiz.count} author={this.getUserList(quiz.userid)} takeQuiz={this.props.takeQuiz}/>
                     )}
                 </div>
             </div>

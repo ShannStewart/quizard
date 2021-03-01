@@ -48,9 +48,17 @@ class PublishedQuiz extends Component{
         
         var quizzer = findUser(this.props.userList, userToken);
 
-        var quizzerUser = quizzer.name;
+        var quizzerUser = '';
 
-        return quizzerUser
+        if(quizzer == undefined){
+            return quizzerUser;
+        }   
+        else{
+            quizzerUser = quizzer.name;
+
+            return quizzerUser
+        }
+        
     }
 
     render(){
