@@ -44,7 +44,7 @@ class NewQuiz extends Component{
                     <button className='submitter' type='submit'>Make Quiz</button>
                 </form>
             </section>
-            <div className='errorSpace hidden' id='passwordError'>
+            <div className='errorSpace' id='passwordError'>
             <p className="hidden" id="quizTitleMissing">Quiz title is required</p>
                 </div>
       </div>

@@ -22,6 +22,8 @@ class Logform extends Component{
         var userName = ev.target.user_name.value;
         var password = ev.target.password.value;
 
+        userName = userName.toLowerCase();
+
        // console.log("checking username: " + userName);
        // console.log("checking password: " + password);
 
