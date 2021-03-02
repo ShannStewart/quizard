@@ -85,6 +85,7 @@ class Test extends Component{
      //   console.log(answers);
 
         return(
+        <div>
             <div className='test'>
                 {(results == true)
                 ?<div><h3>{questions[this.props.current].question}</h3>
@@ -95,6 +96,8 @@ class Test extends Component{
                 {answers.map((answer, index) => <button key={index} onClick={() => this.checkAnswer(answer, correct)}>{answer}</button>)}
                 <p>The correct answer is {questions[this.props.current].answer}</p></div>}
             </div>
+            <button onClick={() => this.props.history.push('/')}>Return</button>
+        </div>
         )
     }   
 }

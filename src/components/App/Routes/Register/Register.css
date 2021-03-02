@@ -126,7 +126,7 @@ body{
     }
 
     .errorSpace p{
-      color: tomato;
+      color: red;
     }
 
     .hidden{

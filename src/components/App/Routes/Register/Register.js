@@ -95,7 +95,7 @@ class Register extends Component{
                     </form>
                 </div>
                 </div>
-            <div className='errorSpace hidden' id='passwordError'>
+            <div className='errorSpace' id='passwordError'>
                         <p className="hidden" id="usernameMissing">Username is required</p>
                         <p className="hidden" id="passwordMissing">Password is required</p>
                         <p className="hidden" id="confirmMissing">Passwords aren't the same</p>
