@@ -90,11 +90,11 @@ class Test extends Component{
                 {(results == true)
                 ?<div><h3>{questions[this.props.current].question}</h3>
                 {answers.map((answer, index) => <button key={index} onClick={() => this.quizResults(answer, correct)}>{answer}</button>)}
-                <p>The correct answer is {questions[this.props.current].answer}</p></div>
+                </div>
 
                 :<div><h3>{questions[this.props.current].question}</h3>
                 {answers.map((answer, index) => <button key={index} onClick={() => this.checkAnswer(answer, correct)}>{answer}</button>)}
-                <p>The correct answer is {questions[this.props.current].answer}</p></div>}
+             </div>}
             </div>
             <button onClick={() => this.props.history.push('/')}>Return</button>
         </div>
