@@ -1,27 +1,5 @@
-.createQuiz{
-    display: flex;
-    flex-direction: column;
-}
-
-.createQuizList{
-    display: flex;
-    flex-direction: column;
-}
-
-.createQuizList div{
-    width: 400px;
-}
 
 @media only screen and (min-width: 768px){
 
-    .createQuiz{
-        width: 99%;
-    }
-
-    .createQuizList{
-        display: flex;
-        flex-direction: row;
-        justify-content: space-evenly;
-    }
 
 }

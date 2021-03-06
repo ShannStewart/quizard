@@ -1,15 +1,9 @@
 .headerBar{
-  display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
-  width: 90%;
+ 
 }
 
 @media only screen and (min-width: 768px){
   
   .user p{
-    color: lightseagreen;
-    font-size: 20px;
-    padding: 5px;
-  }
+  
 }

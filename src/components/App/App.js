@@ -152,6 +152,10 @@ deleteQuiz = (id) =>{
       var newUserList = this.state.users.concat(newUserItem);
       this.setState({ users: newUserList });
 
+      var ider = data.id;
+
+      TokenService.saveAuthToken(ider);
+
     }
 
     userSubmit = (u, p) => {
@@ -164,11 +168,7 @@ deleteQuiz = (id) =>{
         },
         body: JSON.stringify(newUser)
       }
-
-      var ider = newUser.id;
-
-      TokenService.saveAuthToken(ider);
-          
+      
       fetch(`${config.API_ENDPOINT}/auth`, postUser)  
       .then(response => response.json())
       .then(data => this.userReload(data))
