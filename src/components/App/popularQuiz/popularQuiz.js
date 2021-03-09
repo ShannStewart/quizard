@@ -1,6 +1,6 @@
 
 import React, { Component } from 'react';
-import './popularQuiz.css'
+import './quizList.css'
 
 import QuizPanel from '../quizPanel/quizPanel'
 

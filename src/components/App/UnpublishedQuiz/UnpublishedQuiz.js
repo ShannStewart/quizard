@@ -1,5 +1,5 @@
 import {React, Component} from 'react';
-import './UnpublishedQuiz.css'
+import './quizList.css'
 import { Redirect, Route, Switch } from 'react-router-dom';
 
 

@@ -1,5 +1,5 @@
 import {React, Component} from 'react';
-import './PublishedQuiz.css'
+import './quizList.css'
 
 import TokenService from '../../../services/token-service';
 import { findUser, findQuiz, getQuizzesForUsers } from '../../../helper';

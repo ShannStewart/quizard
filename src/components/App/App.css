@@ -1,5 +1,5 @@
 .App{
-    height: 100%
+    height: 100%;
 }
 
 .Home{
@@ -10,6 +10,12 @@ header{
     height: 15%;
     display: block;
     width: 99%;
+}
+
+main{
+    margin: 1cm;
+    margin-bottom: 2cm;
+    padding-bottom: 1cm;
 }
 
 .siteTitle{
@@ -28,11 +34,41 @@ main{
 }
 
 .fourSection{
-    height: 20%;
+    height: 7cm;
+}
+
+.twoSection{
+    height: 8cm;
 }
 
 .quizList{
+    display: flex;
+    flex-direction: row;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    white-space: nowrap;
+    margin-top: .25cm;
+    margin-bottom: 1cm;
+}
+
+.panel{
     display: block;
+    width: 5cm;
+    margin-left: .25cm;
+    margin-right: .25cm;
+    background-color: teal;
+    padding: .5cm;
+    border-radius: .5cm;
+}
+
+.profileBack{
+    display: flex;
+    justify-content: center;
+}
+
+.profileForm{
+    display: flex;
+    flex-direction: column;
 }
 
 @media only screen and (min-width: 768px){

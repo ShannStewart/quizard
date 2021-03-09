@@ -1,4 +1,4 @@
-import './newQuiz.css'
+import './quizList.css'
 import React, { Component } from 'react';
 
 import QuizPanel from '../quizPanel/quizPanel'

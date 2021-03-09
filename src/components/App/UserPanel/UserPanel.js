@@ -30,7 +30,7 @@ class UserPanel extends Component{
         const quizID = this.props.quizID;
 
         return(
-            <div>
+            <div className='panel'>
                 <div><h3>{this.props.title}</h3></div>
                 <div>
                     <div><h4>By {this.props.author}</h4><h4>Taken: {this.props.views}</h4></div>

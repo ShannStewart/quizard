@@ -39,8 +39,10 @@ class HomeLogout extends Component{
   render(){
     return(
       <main>
-      <section className='fullSection otherQuiz'>     
+      <section className='twoSection'>     
             <NewQuiz quizList={this.props.quizList} userList={this.props.userList} questionList={this.props.questionList} takeQuiz={this.props.takeQuiz}/>
+        </section>
+        <section className='twoSection'>
             <PopularQuiz quizList={this.props.quizList} userList={this.props.userList} questionList={this.props.questionList} takeQuiz={this.props.takeQuiz}/>
         </section>
       </main>
