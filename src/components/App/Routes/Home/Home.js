@@ -17,14 +17,16 @@ class HomeLogin extends Component{
   render(){
     return(
       <main>
-           <section className='halfSection userQuiz'>
-                <div>
+           <section className='fourSection'>
                    <UnpublishedQuiz quizList={this.props.quizList} userList={this.props.userList} questionList={this.props.questionList} publishQuiz={this.props.publishQuiz} deleteQuiz={this.props.deleteQuiz}/>
-                  </div>
-                <PublishedQuiz quizList={this.props.quizList} userList={this.props.userList} questionList={this.props.questionList} unPublishQuiz={this.props.unPublishQuiz} deleteQuiz={this.props.deleteQuiz}/>
+                  </section>
+              <section className='fourSection'>
+                <PublishedQuiz quizList={this.props.quizList} userList={this.props.userList} questionList={this.props.questionList} unPublishQuiz={this.props.unPublishQuiz} deleteQuiz={this.props.deleteQuiz}/> 
               </section>
-            <section className='halfSection otherQuiz'>
+            <section className='fourSection'>
               <NewQuiz quizList={this.props.quizList} userList={this.props.userList} questionList={this.props.questionList} takeQuiz={this.props.takeQuiz}/>
+              </section>
+              <section className='fourSection'>
               <PopularQuiz quizList={this.props.quizList} userList={this.props.userList} questionList={this.props.questionList} takeQuiz={this.props.takeQuiz}/>
               </section>
       </main>

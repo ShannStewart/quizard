@@ -8,16 +8,14 @@ class QuizHeader extends Component{
 
   render(){ 
     return (
-      <div>
         <header>
           <h1 className='siteTitle'>Quizard</h1>
-          <section className='user'>
+          <section className='headerBar'>
             <Link to='/'>Return</Link>
             <Link to='create/newQuiz'>Create Quiz</Link>
             <Link to='create/newQuestion'>Create Question</Link>
             </section>
         </header>
-      </div>
     );
   }
 }

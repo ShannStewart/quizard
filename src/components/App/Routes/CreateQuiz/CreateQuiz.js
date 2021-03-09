@@ -116,30 +116,32 @@ class CreateQuiz extends Component{
         return(
             <div className='createQuiz'>
                 <Route render={routeProps=> (<QuizHeader {...routeProps}/>)}/>
-                    <div className='unpublished'>
+                <main>
+                    <section className='unpublished'>
                         <h2 className='sectionTitle'>Quizzes In Progress</h2>
                         <div className='createQuizList'>
                         {sortedQuiz.map((quiz, index) =>
                               <Route key={index} render={routeProps => ( <UserPanel {...routeProps} key={quiz.id} quizID={quiz.id} title={quiz.name} views={quiz.count} published={quiz.published} quizList={this.props.quizList} questionList={this.props.questionList} author={this.getUser()} publishButton={this.props.publishQuiz} deleteQuiz={this.props.deleteQuiz}/> )}/>
                         )}
                     </div>
-                </div>
-                <div className='published'>
+                </section>
+                <section className='published'>
                     <h2 className='sectionTitle'>Your Quizzes</h2>
                     <div className='createQuizList'>
                         {otherSortedQuiz.map((quiz, index) =>
                               <Route key={index} render={routeProps => ( <UserPanel {...routeProps} key={quiz.id} quizID={quiz.id} title={quiz.name} views={quiz.count} published={quiz.published} quizList={this.props.quizList} questionList={this.props.questionList} author={this.getUser()} publishButton={this.props.unPublishQuiz} deleteQuiz={this.props.deleteQuiz}/> )}/>
                         )}
                     </div>
-                </div>
-                <div className='questions'>
+                </section>
+                <section className='questions'>
                         <h2 className='sectionTitle'>Questions</h2>
                         <div className='createQuizList'>
                             {yourQuestions.map(question =>
                                 <QuestionPanel key={question.id} id={question.id} question={question.question} answer={question.answer} choices={question.choices} used={question.used} deleteQuestion={this.props.deleteQuestion}/>
                                 )}
                             </div>
-                </div>
+                </section>
+                </main>
             </div>
         )
     }

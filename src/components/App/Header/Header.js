@@ -42,7 +42,6 @@ class Header extends Component{
 
   render(){ 
     return (
-      <div>
         <header>
           <h1 className='siteTitle'>Quizard</h1>
           <section className='user'>
@@ -51,7 +50,6 @@ class Header extends Component{
                 : <Route render={routeProps => (<HeaderOut {...routeProps}/>)}/>}
             </section>
         </header>
-      </div>
     );
   }
 }

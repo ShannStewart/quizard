@@ -1,4 +1,39 @@
+.App{
+    height: 100%
+}
 
+.Home{
+    height: 100%;
+}
+
+header{
+    height: 15%;
+    display: block;
+    width: 99%;
+}
+
+.siteTitle{
+    display: flex;
+    justify-content: center;
+}
+
+.headerBar{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+main{
+    height: 80%;
+}
+
+.fourSection{
+    height: 20%;
+}
+
+.quizList{
+    display: block;
+}
 
 @media only screen and (min-width: 768px){
 
