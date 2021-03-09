@@ -35,6 +35,7 @@ main{
 
 .fourSection{
     height: 7cm;
+    margin-bottom: 1cm;
 }
 
 .twoSection{
@@ -51,14 +52,23 @@ main{
     margin-bottom: 1cm;
 }
 
+
 .panel{
     display: block;
-    width: 5cm;
+    width: 7cm;
     margin-left: .25cm;
     margin-right: .25cm;
     background-color: teal;
     padding: .5cm;
     border-radius: .5cm;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.panelButtons{
+    display: flex;
+    flex-direction: row;
 }
 
 .profileBack{

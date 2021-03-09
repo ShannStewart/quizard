@@ -31,9 +31,10 @@ class UserPanel extends Component{
 
         return(
             <div className='panel'>
-                <div><h3>{this.props.title}</h3></div>
+                <div className='panelTitle'><h3>{this.props.title}</h3></div>
                 <div>
                     <div><h4>By {this.props.author}</h4><h4>Taken: {this.props.views}</h4></div>
+                    <div className='panelButtons'>
                     <div>
                         {!this.props.published 
                          ?<button onClick={() => this.props.history.push(`/create/quiz/${this.props.quizID}`)}>Edit</button>
@@ -49,6 +50,7 @@ class UserPanel extends Component{
                             ? <button onClick={() => this.handlePublish(quizID)}>Unpublish</button>
                             : <button onClick={() => this.handlePublish(quizID)}>Publish</button>}
                         </div>
+                    </div>
                 </div>
             </div>
         )
